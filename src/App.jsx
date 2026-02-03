@@ -1,33 +1,48 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import BusinessList from './components/businessList'
+import pizzaImage from './assets/14.jpg'
+
 import './App.css'
+
+const testBusinesses = [
+  {
+    id: 1,
+    imageSrc: pizzaImage,
+    name: "Joe's Pizza",
+    address: "7 Carmine St",
+    zipCode: "10014",
+    category: "Italian",
+    rating: 4.5,
+    reviewCount: 1024
+  },
+  {
+    id: 2,
+    imageSrc: pizzaImage,
+    name: "Luigi's Pizzeria",
+    address: "123 Main St",
+    zipCode: "10001",
+    category: "Italian",
+    rating: 4.0,
+    reviewCount: 850
+  },
+  {
+    id: 3,
+    imageSrc: pizzaImage,
+    name: "Mama Mia's",
+    address: "456 Elm St",
+    zipCode: "10002",
+    category: "Italian",
+    rating: 4.2,
+    reviewCount: 900
+  }
+];
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BusinessList businesses={testBusinesses} />
     </>
   )
 }
