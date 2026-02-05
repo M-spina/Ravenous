@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import SearchBar from './components/SearchBar'
 import BusinessList from './components/businessList'
 import pizzaImage from './assets/14.jpg'
 
@@ -38,11 +39,18 @@ const testBusinesses = [
 ];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [businesses, setBusinesses] = useState(testBusinesses);
+
+  const handleSearch = (term, location) => {
+    console.log(`Searching for ${term} in ${location}`);
+    // Here you would typically make an API call to fetch businesses based on the search term and location
+  }
 
   return (
     <>
-      <BusinessList businesses={testBusinesses} />
+      <h1>Ravenous</h1>
+      <SearchBar onSearch={handleSearch} />
+      <BusinessList businesses={businesses} />
     </>
   )
 }
