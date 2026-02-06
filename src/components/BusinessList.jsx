@@ -1,4 +1,4 @@
-import Business from "./business";
+import Business from "./Business.jsx";
 import '../Styles/BusinessList.css';
 
 export default function BusinessList({ businesses }) {

@@ -28,13 +28,18 @@
   text-align: center;
 }
 
-
+.business-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
 
 .business-left,
 .business-right {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex: 1;
 }
 
 .business-left p,
