@@ -1,73 +1,76 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar'
 import BusinessList from './components/BusinessList'
+import { loadGoogleMapsScript } from './utilities/loadGoogleMaps'
+import { searchPlaces } from './utilities/placesService'
+import { transformPlacesResponse } from './utilities/API_Utilities'
 import pizzaImage from './assets/14.jpg'
 
 import './App.css'
 
-console.log('API Key loaded:', import.meta.env.VITE_GOOGLE_PLACES_API_KEY ? 'Yes ✅' : 'No ❌');
-
-const testBusinesses = [
-  {
-    id: "ChIJN1t_tDeuEmsRUsoyG83frY4", // Use place_id format
-    imageSrc: pizzaImage,
-    name: "Joe's Pizza",
-    address: "7 Carmine St, New York, NY 10014, USA", // Full formatted address
-    category: "Italian Restaurant",
-    rating: 4.5,
-    reviewCount: 1024
-  },
-  {
-    id: "ChIJN1t_tDeuEmsRUsoyG83frY5",
-    imageSrc: pizzaImage,
-    name: "Luigi's Pizzeria",
-    address: "123 Main St, New York, NY 10001, USA",
-    category: "Italian Restaurant",
-    rating: 4.0,
-    reviewCount: 850
-  },
-  {
-    id: "ChIJN1t_tDeuEmsRUsoyG83frY6",
-    imageSrc: pizzaImage,
-    name: "Mama Mia's",
-    address: "456 Elm St, New York, NY 10002, USA",
-    category: "Italian Restaurant",
-    rating: 4.2,
-    reviewCount: 900
-  },
-  {
-    id: "ChIJN1t_tDeuEmsRUsoyG83frY7",
-    imageSrc: pizzaImage,
-    name: "Pizza GOGO",
-    address: "234 Oak St, New York, NY 10003, USA",
-    category: "Italian Restaurant",
-    rating: 4.2,
-    reviewCount: 500
-  },
-  {
-    id: "ChIJN1t_tDeuEmsRUsoyG83frY8",
-    imageSrc: pizzaImage,
-    name: "Matilda's Pies",
-    address: "111 Pine St, New York, NY 10004, USA",
-    category: "Italian Restaurant",
-    rating: 4.2,
-    reviewCount: 1802
-  }
-];
-
 function App() {
-  const [businesses, setBusinesses] = useState(testBusinesses);
+  const [businesses, setBusinesses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [mapsLoaded, setMapsLoaded] = useState(false);
 
-  const handleSearch = (term, location) => {
-    console.log(`Searching for ${term} in ${location}`);
-    // Here you would typically make an API call to fetch businesses based on the search term and location
-  }
+  useEffect(() => {
+    const initializeGoogleMaps = async () => {
+      try {
+        await loadGoogleMapsScript();
+        setMapsLoaded(true);
+        console.log('Google Maps initialized successfully');
+      } catch (error) {
+        console.error('Error initializing Google Maps:', error);
+        setError('Failed to load Google Maps. Please try again later.');
+      }
+    }
+    initializeGoogleMaps();
+  }, []);
+
+  const handleSearch = async (term, location) => {
+    if(!mapsLoaded) {
+      setError('Google Maps is still loading. Please wait and try again.');
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+
+    try{
+      console.log(`Searching for "${term}" in "${location}"...`);
+
+      // Perform the search using the PlacesService
+      const results = await searchPlaces(term, location);
+
+      // Transform the raw API response into our app's business format
+      const transformedBusinesses = transformPlacesResponse(results);
+
+      // Update state with the transformed business data
+      setBusinesses(transformedBusinesses);
+      console.log('Search completed successfully');
+    } catch (error) {
+      console.error('Error during search:', error);
+      setError('An error occurred while searching for businesses. Please try again.');
+      setBusinesses([]); // Clear businesses on error
+    } finally { // Ensure loading state is reset regardless of success or failure
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
       <h1>Ravenous</h1>
       <SearchBar onSearch={handleSearch} />
-      <BusinessList businesses={businesses} />
+      {error && <div className="error-message">{error}</div>}
+      {isLoading && <div className="loading-message">Loading...</div>}
+      {!isLoading && businesses.length === 0 && !error && (
+        <div className="no-results">
+          Search for restaurants to get started!
+        </div>
+      )}
+      {!isLoading && businesses.length > 0 && (
+        <BusinessList businesses={businesses} />
+      )}
     </>
   )
 }
