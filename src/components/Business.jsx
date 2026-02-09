@@ -1,4 +1,5 @@
 import StarRating from './StarRating';
+import PriceLevel from './PriceLevel';
 import '../Styles/Business.css';
 
 export default function Business({ business }) {
@@ -24,6 +25,12 @@ export default function Business({ business }) {
         <div className='business-rating'>
           <StarRating rating={business.rating} />
           <span className='review-count'>{business.reviewCount} reviews</span>
+           {business.priceLevel && (
+            <>
+              <span className="separator">•</span>
+              <PriceLevel priceLevel={business.priceLevel} />
+            </>
+          )}
         </div>
       </div>
     </div>

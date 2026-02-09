@@ -30,7 +30,7 @@ export default function StarRating({rating}) {
             {stars.map((type, index) => (
                 <span key={index} className={`star star-${type}`}>
                     {type === 'full' && '★'}
-                    {type === 'half' && '[]'} {/* You can replace this with a half star character or an SVG */}
+                    {type === 'half' && '⯨'} {/* You can replace this with a half star character or an SVG */}
                     {type === 'empty' && '☆'}
                 </span>
                 

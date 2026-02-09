@@ -8,6 +8,7 @@ export const transformPlaceData = (place) => {
     category: place.types?.[0]?.replace(/_/g, ' ') || 'Restaurant',
     rating: place.rating || 0,
     reviewCount: place.userRatingCount || 0,        // Changed from user_ratings_total
+    priceLevel: place.priceLevel || null,              // New field in Places API
     imageUrl: place.photos?.[0] 
       ? place.photos[0].getURI({ maxWidth: 400 })   // Changed from getUrl() to getURI()
       : defaultImage
