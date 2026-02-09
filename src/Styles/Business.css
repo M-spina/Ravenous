@@ -48,3 +48,18 @@
   font-size: 0.9rem;
   color: #666;
 }
+
+.business-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.review-count {
+  font-size: 0.9rem;
+  color: #666;
+}

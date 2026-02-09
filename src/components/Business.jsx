@@ -1,3 +1,4 @@
+import StarRating from './StarRating';
 import '../Styles/Business.css';
 
 export default function Business({ business }) {
@@ -18,9 +19,11 @@ export default function Business({ business }) {
           <div className="business-right">
             <p>Category:</p>
             <p>{business.category}</p>
-            <p>Rating: {business.rating}⭐</p>
-            <p>{business.reviewCount} reviews</p>
           </div>
+        </div>
+        <div className='business-rating'>
+          <StarRating rating={business.rating} />
+          <span className='review-count'>{business.reviewCount} reviews</span>
         </div>
       </div>
     </div>

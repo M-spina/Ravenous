@@ -1,0 +1,29 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.star-full {
+  color: #ffa500; /* Orange/gold color */
+}
+
+.star-half {
+  color: #ffa500;
+}
+
+.star-empty {
+  color: #ddd; /* Light gray */
+}
+
+.rating-number {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
