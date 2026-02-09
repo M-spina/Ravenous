@@ -29,9 +29,14 @@ export default function StarRating({rating}) {
         <div className="star-rating">
             {stars.map((type, index) => (
                 <span key={index} className={`star star-${type}`}>
-                    {type === 'full' && '★'}
-                    {type === 'half' && '⯨'} {/* You can replace this with a half star character or an SVG */}
-                    {type === 'empty' && '☆'}
+                    {type === 'full' && <span className="star-icon">★</span>}
+                    {type === 'half' && (
+                        <span className="star-half-wrapper">
+                            <span className="star-icon star-half-fill">★</span>
+                            <span className="star-icon star-half-empty">★</span>
+                        </span>
+                    )}
+                    {type === 'empty' && <span className="star-icon">☆</span>}
                 </span>
                 
             ))}

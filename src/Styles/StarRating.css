@@ -7,18 +7,39 @@
 .star {
   font-size: 1.2rem;
   line-height: 1;
+  position: relative;
+  display: inline-block;
 }
 
-.star-full {
+.star-icon {
+  display: inline-block;
+}
+
+.star-full .star-icon {
   color: #ffa500; /* Orange/gold color */
 }
 
-.star-half {
-  color: #ffa500;
+.star-empty .star-icon {
+  color: #ddd; /* Light gray */
 }
 
-.star-empty {
-  color: #ddd; /* Light gray */
+/* Half star using CSS clipping */
+.star-half-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.star-half-fill {
+  color: #ffa500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.star-half-empty {
+  color: #ddd;
 }
 
 .rating-number {
