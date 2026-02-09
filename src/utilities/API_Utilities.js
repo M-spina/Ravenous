@@ -1,3 +1,5 @@
+import defaultImage from '../assets/placeholder.png';
+
 export const transformPlaceData = (place) => {
   return {
     id: place.id,                                    // Changed from place_id
@@ -8,7 +10,7 @@ export const transformPlaceData = (place) => {
     reviewCount: place.userRatingCount || 0,        // Changed from user_ratings_total
     imageUrl: place.photos?.[0] 
       ? place.photos[0].getURI({ maxWidth: 400 })   // Changed from getUrl() to getURI()
-      : null
+      : defaultImage
   };
 };
 
