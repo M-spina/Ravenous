@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LocationInput from './LocationInput';
 import '../Styles/SearchBar.css';
 
 export default function SearchBar({ onSearch }) {
@@ -23,13 +24,7 @@ export default function SearchBar({ onSearch }) {
             onChange={(e) => setTerm(e.target.value)}
             required
           />
-          <input
-            type="text"
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
+          <LocationInput value={location} onChange={setLocation} />
         </div>
         <button type="submit">Search</button>
       </form>
