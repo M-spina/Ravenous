@@ -13,21 +13,40 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Changed from wrap to nowrap */
+}
+
+.search-inputs input,
+.location-input-container {
+  flex: 1;
+  min-width: 0; /* Changed from 200px to 0 - allows flex to shrink properly */
 }
 
 .search-inputs input {
-  flex: 1;
-  min-width: 200px;
   padding: 0.875rem 1rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  background: #fff; /* Ensure white background */
+  color: #333; /* Text color */
 }
 
-.search-inputs input:focus {
+/* Ensure LocationInput inherits the same styling */
+.location-input-container .location-input {
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  background: #fff;
+  color: #333;
+}
+
+.search-inputs input:focus,
+.location-input-container .location-input:focus {
   outline: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -56,12 +75,15 @@
   transform: translateY(0);
 }
 
+/* Mobile: Stack inputs vertically on small screens */
 @media (max-width: 600px) {
   .search-inputs {
     flex-direction: column;
+    flex-wrap: wrap; /* Allow wrapping on mobile */
   }
   
-  .search-inputs input {
+  .search-inputs input,
+  .location-input-container {
     min-width: 100%;
   }
 }

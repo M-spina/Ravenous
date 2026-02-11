@@ -8,6 +8,11 @@
     box-sizing: border-box;
 }
 
+/* Match placeholder color with search input */
+.location-input::placeholder {
+    color: #999;
+}
+
 /* Dropdown container */
 .suggestions-dropdown {
     position: absolute;
