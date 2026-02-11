@@ -6,12 +6,20 @@ import './App.css'
 
 function App() {
   
-  const { businesses, isLoading, error, handleSearch } = usePlaces();
+  const { businesses, isLoading, error, handleSearch, setCoords, clearCoords } = usePlaces();
+
+  const handleCoordsUpdate = (coords) => {
+    if(coords) {
+      setCoords(coords);
+    } else {
+      clearCoords();
+    }
+  }
 
   return (
     <>
       <h1>Ravenous</h1>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} onCoordsUpdate={handleCoordsUpdate} />
       {error && <div className="error-message">{error}</div>}
       {isLoading && <div className="loading-message">Loading...</div>}
       {!isLoading && businesses.length === 0 && !error && (

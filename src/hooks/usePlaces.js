@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { loadGoogleMapsScript } from '../utilities/loadGoogleMaps';
 import { searchPlaces } from '../utilities/placesService';
 import { transformPlacesResponse } from '../utilities/API_Utilities';
@@ -8,6 +8,8 @@ export const usePlaces = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [mapsLoaded, setMapsLoaded] = useState(false);
+
+    const coordsRef = useRef(null); // Store user coordinates in a ref to avoid unnecessary re-renders
 
     // Load Google Maps Places library on mount
     useEffect(() => {
@@ -24,6 +26,16 @@ export const usePlaces = () => {
         initializeGoogleMaps();
     }, []);
 
+    const setCoords = (coords) => {
+        coordsRef.current = coords;
+        console.log('User coordinates set in ref ✅', coords);
+    }
+
+    const clearCoords = () => {
+        coordsRef.current = null;
+        console.log('User coordinates cleared from ref ✅');
+    }
+
     // Function to handle searching for places
     const handleSearch = async (term, location) => {
         if(!mapsLoaded) {
@@ -35,7 +47,8 @@ export const usePlaces = () => {
 
         try {
             console.log(`Searching for "${term}" in "${location}"...`);
-            const places = await searchPlaces(term, location);
+            // Pass the current coordinates from the ref to the search function for location biasing
+            const places = await searchPlaces(term, location, coordsRef.current);
             const transformedBusinesses = transformPlacesResponse(places);
             setBusinesses(transformedBusinesses);
         } catch (error) {
@@ -47,5 +60,5 @@ export const usePlaces = () => {
         }
     }
 
-    return { businesses, isLoading, error, mapsLoaded, handleSearch };
+    return { businesses, isLoading, error, mapsLoaded, handleSearch, setCoords, clearCoords };
 };
