@@ -8,6 +8,7 @@ export const usePlaces = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [mapsLoaded, setMapsLoaded] = useState(false);
+    const [sortBy, setSortBy] = useState('bestMatch'); // Default sort option
 
     const coordsRef = useRef(null); // Store user coordinates in a ref to avoid unnecessary re-renders
 
@@ -26,15 +27,34 @@ export const usePlaces = () => {
         initializeGoogleMaps();
     }, []);
 
+    // Functions to set user coordinates in the ref without causing re-renders
     const setCoords = (coords) => {
         coordsRef.current = coords;
         console.log('User coordinates set in ref ✅', coords);
     }
-
+    // Clear coordinates from the ref when user opts out of location-based search or when location becomes unavailable
     const clearCoords = () => {
         coordsRef.current = null;
         console.log('User coordinates cleared from ref ✅');
     }
+
+    // sort businesses based on the selected criteria
+    const sortBusinesses = (businessesToSort, sortType) => {
+        const sorted = [...businessesToSort]; // Create a copy to avoid mutating state directly
+
+        switch (sortType) {
+            case 'rating':
+                return sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0)); // Handle missing ratings by treating them as 0
+            case 'reviewCount':
+                return sorted.sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0)); // Handle missing review counts by treating them as 0
+            case 'bestMatch':
+            default:
+                return sorted; // Assuming the original order is the best match order
+        }
+    }
+
+    // Get sorted businesses based on current sort option
+    const sortedBusinesses = sortBusinesses(businesses, sortBy); // Default sort by best match
 
     // Function to handle searching for places
     const handleSearch = async (term, location) => {
@@ -51,6 +71,7 @@ export const usePlaces = () => {
             const places = await searchPlaces(term, location, coordsRef.current);
             const transformedBusinesses = transformPlacesResponse(places);
             setBusinesses(transformedBusinesses);
+            setSortBy('bestMatch'); // Reset sort to default when new search results come in
         } catch (error) {
             console.error('Error during search: ❌', error);
             setError('An error occurred while searching for businesses. Please try again.');
@@ -60,5 +81,10 @@ export const usePlaces = () => {
         }
     }
 
-    return { businesses, isLoading, error, mapsLoaded, handleSearch, setCoords, clearCoords };
+    const handleSortChange = (sortOption) => {
+        setSortBy(sortOption);
+        console.log(`Sort option changed to: ${sortOption} ✅`);
+    }
+
+    return { businesses: sortedBusinesses, isLoading, error, mapsLoaded, handleSearch, setCoords, clearCoords, sortBy, handleSortChange };
 };

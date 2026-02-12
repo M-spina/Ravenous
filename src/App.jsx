@@ -1,12 +1,13 @@
 import SearchBar from './components/SearchBar'
 import BusinessList from './components/BusinessList'
+import SortBar from './components/SortBar'
 import { usePlaces } from './hooks/usePlaces'
 
 import './App.css'
 
 function App() {
   
-  const { businesses, isLoading, error, handleSearch, setCoords, clearCoords } = usePlaces();
+  const { businesses, isLoading, error, handleSearch, setCoords, clearCoords, sortBy, handleSortChange } = usePlaces();
 
   const handleCoordsUpdate = (coords) => {
     if(coords) {
@@ -28,7 +29,10 @@ function App() {
         </div>
       )}
       {!isLoading && businesses.length > 0 && (
-        <BusinessList businesses={businesses} />
+        <>
+          <SortBar currentSort={sortBy} onSortChange={handleSortChange} />
+          <BusinessList businesses={businesses} />
+        </>
       )}
     </>
   )
