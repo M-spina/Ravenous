@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import LocationInput from './LocationInput';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { reverseGeocode } from '../utilities/geocodingService';
+import { setSearchTerm, setSearchLocation, addToSearchHistory } from '../store/searchSlice';
+import { setCoords, clearCoords, fetchPlaces } from '../store/placesSlice';
 import '../Styles/SearchBar.css';
 
 export default function SearchBar({ onSearch, onCoordsUpdate }) {
-  const [term, setTerm] = useState('');
-  const [location, setLocation] = useState('');
+  const dispatch = useDispatch();
+
+  const { term, location } = useSelector((state) => state.search);
+  const { coords, isLoading } = useSelector((state) => state.places);
   const { getUserLocation, isLocating, geoError } = useGeolocation();
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (term && location) {
-      onSearch(term, location);
+      // Pass the current coordinates from the places slice to the fetchPlaces thunk for location biasing in search results
+      dispatch(fetchPlaces({ term, location, coords }));
+      //optinal: store search term and location in search history for future "recent searches" feature
+      dispatch(addToSearchHistory({ term, location }));
     }
   };
 
@@ -24,11 +31,9 @@ export default function SearchBar({ onSearch, onCoordsUpdate }) {
       try {
         // step 2: reverse geocode the coordinates to get a human-readable location name
         const locationName = await reverseGeocode(coords);
-        setLocation(locationName);
+        dispatch(setSearchLocation(locationName)); // Update the location in the search slice
+        dispatch(setCoords(coords)); // Update the coordinates in the places slice
         // step 3: pass the coordinates up to the parent component for location biasing in search
-        if(onCoordsUpdate) {
-          onCoordsUpdate(coords); 
-        }
         console.log('Reverse geocoding successful ✅', locationName);
       } catch (error) {
         console.error('Error during reverse geocoding: ❌', error);
@@ -38,11 +43,8 @@ export default function SearchBar({ onSearch, onCoordsUpdate }) {
 
   // Function to handle manual location input changes
   const handleLocationChange = (newLocation) => {
-    setLocation(newLocation);
-    // Clear any previously stored coordinates when the user manually changes the location input
-    if(onCoordsUpdate) {
-      onCoordsUpdate(null); 
-    }
+    dispatch(setSearchLocation(newLocation));
+    dispatch(clearCoords());
   }
   return (
     <div className="search-bar">
@@ -52,7 +54,7 @@ export default function SearchBar({ onSearch, onCoordsUpdate }) {
             type="text"
             placeholder="Search restaurants, cafes..."
             value={term}
-            onChange={(e) => setTerm(e.target.value)}
+            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
             required
           />
           <div className='location-wrapper'>
