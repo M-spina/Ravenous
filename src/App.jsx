@@ -4,37 +4,22 @@ import SearchBar from './components/SearchBar'
 import BusinessList from './components/BusinessList'
 import SortBar from './components/SortBar'
 import { loadGoogleMapsScript } from './utilities/loadGoogleMaps'
-import { setSortBy, selectSortedBusinesses } from './store/placesSlice'
+import { setSortBy, selectSortedBusinesses, initializeGoogleMaps } from './store/placesSlice'
 
 import './App.css'
 
 function App() {
 
   const dispatch = useDispatch();
+  // Get state from the Redux store using selectors
   const businesses = useSelector(selectSortedBusinesses);
-  const { isLoading, error, sortBy, coords } = useSelector((state) => state.places);
-  const [mapsLoaded, setMapsLoaded] = useState(false);
+  const { isLoading, error, sortBy, mapsLoaded, mapsError } = useSelector((state) => state.places);
+
   
-  // Load Google Maps Places library on mount
+  // Initialize Google Maps when the app mounts so it's ready to use for location-based search and displaying maps in business details
   useEffect(() => {
-    const initializeGoogleMaps = async () => {
-      try {
-        await loadGoogleMapsScript(); // This now loads AND stores the library
-        setMapsLoaded(true);
-        console.log('Google Maps initialized successfully ✅');
-      } catch (error) {
-        console.error('Error initializing Google Maps: ❌', error);
-      }
-    };
-    initializeGoogleMaps();
-  }, []);
-
-  useEffect(() => {
-    if (!mapsLoaded && isLoading) {
-      alert('Google Maps is still loading. Please wait a moment.');
-    }
-  }, [mapsLoaded, isLoading]);
-
+    dispatch(initializeGoogleMaps());
+  }, [dispatch]);
 
   const handleSortChange = (newSort) => {
     dispatch(setSortBy(newSort));
@@ -45,6 +30,7 @@ function App() {
   return (
     <>
       <h1>Ravenous</h1>
+      {mapsError && (<div className="error-message">Failed to load Google Maps: {mapsError}</div>)}
       <SearchBar />
       {error && <div className="error-message">{error}</div>}
       {isLoading && <div className="loading-message">Loading...</div>}

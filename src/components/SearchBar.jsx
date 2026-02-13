@@ -10,11 +10,17 @@ export default function SearchBar({ onSearch, onCoordsUpdate }) {
   const dispatch = useDispatch();
 
   const { term, location } = useSelector((state) => state.search);
-  const { coords, isLoading } = useSelector((state) => state.places);
+  const { coords, isLoading, mapsLoaded } = useSelector((state) => state.places);
   const { getUserLocation, isLocating, geoError } = useGeolocation();
 
   const handleSearch = (e) => {
     e.preventDefault();
+
+    if(!mapsLoaded) {
+      alert('Google Maps is still loading. Please wait a moment and try again.');
+      return;
+    }
+
     if (term && location) {
       // Pass the current coordinates from the places slice to the fetchPlaces thunk for location biasing in search results
       dispatch(fetchPlaces({ term, location, coords }));
@@ -59,12 +65,12 @@ export default function SearchBar({ onSearch, onCoordsUpdate }) {
           />
           <div className='location-wrapper'>
             <LocationInput value={location} onChange={handleLocationChange} />
-            <button type="button" onClick={handleUseMyLocation} disabled={isLocating} title='Use My current location' className="geolocation-button">
+            <button type="button" onClick={handleUseMyLocation} disabled={isLocating || !mapsLoaded || isLoading} title='Use My current location' className="geolocation-button">
               {isLocating ? '⏳' : '📍'}
             </button>
           </div>
         </div>
-        <button type="submit">Search</button>
+        <button type="submit" disabled={!mapsLoaded || isLoading || !term || !location}>{!mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search'}</button>
         {geoError && <p className="geo-error">{geoError}</p>}
       </form>
     </div>

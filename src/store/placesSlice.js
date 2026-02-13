@@ -1,6 +1,22 @@
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import { searchPlaces } from "../utilities/placesService";
 import { transformPlacesResponse } from "../utilities/API_Utilities";
+import { loadGoogleMapsScript } from "../utilities/loadGoogleMaps";
+
+
+export const initializeGoogleMaps = createAsyncThunk(
+    'places/initializeGoogleMaps',
+    async (_, { rejectWithValue }) => {
+        try {
+            await loadGoogleMapsScript(); // This now loads AND stores the library
+            console.log('Google Maps initialized successfully ✅');
+            return true; // Return a success value if needed
+        } catch (error) {
+            console.error('Error initializing Google Maps: ❌', error);
+            return rejectWithValue(error.message || 'Failed to load Google Maps. Please try again later.');
+        }
+    }
+);
 
 // Async thunk to handle searching for places(replaces the search function in usePlaces)
 export const fetchPlaces = createAsyncThunk(
@@ -27,6 +43,8 @@ const placesSlice = createSlice({
         error: null,
         sortBy: 'bestMatch', // Default sort option
         coords: null, // Store user coordinates in the slice to make them accessible for location biasing in searches
+        mapsLoaded: false, // Track whether Google Maps has finished loading
+        mapsError: null // Store any errors related to loading Google Maps
     },
     reducers: {
         setCoords: (state, action) => {
@@ -60,7 +78,20 @@ const placesSlice = createSlice({
                 state.error = action.payload || 'An error occurred while searching for businesses. Please try again.';
                 state.businesses = [];
                 console.error('Fetch places rejected ❌', state.error);
-            });
+            })
+            // Handle Google Maps initialization
+            .addCase(initializeGoogleMaps.pending, (state) => {
+                state.mapsLoaded = false;
+                state.mapsError = null;
+            })
+            .addCase(initializeGoogleMaps.fulfilled, (state) => {
+                state.mapsLoaded = true;
+                console.log('Google Maps loaded and ready to use ✅');
+            })
+            .addCase(initializeGoogleMaps.rejected, (state, action) => {
+                state.mapsLoaded = false;
+                state.mapsError = action.payload || 'Failed to load Google Maps. Please try again later.';
+            })
     },
 
 });
