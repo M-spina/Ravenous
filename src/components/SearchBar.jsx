@@ -6,7 +6,7 @@ import { setSearchTerm, setSearchLocation, addToSearchHistory } from '../store/s
 import { setCoords, clearCoords, fetchPlaces } from '../store/placesSlice';
 import '../Styles/SearchBar.css';
 
-export default function SearchBar({ onSearch, onCoordsUpdate }) {
+export default function SearchBar() {
   const dispatch = useDispatch();
 
   const { term, location } = useSelector((state) => state.search);
