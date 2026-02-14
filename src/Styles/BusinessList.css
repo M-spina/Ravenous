@@ -7,21 +7,15 @@
   margin: 0 auto;
 }
 
-@media (max-width: 1024px) {
-  .business-list {
-    padding: 30px;
-    gap: 25px;
-  }
-}
 
-@media (max-width: 868px) {
+@media (max-width: 1123px) {
   .business-list {
     grid-template-columns: repeat(2, 1fr);
     padding: 20px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 726px) {
   .business-list {
     grid-template-columns: 1fr;
     padding: 15px;

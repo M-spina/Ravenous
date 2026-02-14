@@ -1,6 +1,16 @@
 import defaultImage from '../assets/placeholder.png';
 
 export const transformPlaceData = (place) => {
+  // Helper function to format opening hours into a more user-friendly string
+  const formatOpeningHours = (openingHours) => {
+    if(!openingHours?.weekdayDescriptions) return null;
+
+    const today = new Date().getDay(); // Get current day of the week (0-6)
+    const addjustedDay = today === 0 ? 6 : today - 1; // Adjust for API's weekday order (Monday=0, Sunday=6)
+
+    return openingHours.weekdayDescriptions[addjustedDay] || openingHours.weekdayDescriptions[0] // Fallback to the first day if today's hours are not available
+  }
+
   return {
     id: place.id,                                    // Changed from place_id
     name: place.displayName?.text || place.displayName || 'Unknown', // Changed from name (displayName is a string in new API)
@@ -11,7 +21,10 @@ export const transformPlaceData = (place) => {
     priceLevel: place.priceLevel || null,              // New field in Places API
     imageUrl: place.photos?.[0] 
       ? place.photos[0].getURI({ maxWidth: 400 })   // Changed from getUrl() to getURI()
-      : defaultImage
+      : defaultImage,
+    phone: place.internationalPhoneNumber || null,     // New field in Places API
+    website: place.googleMapsURI || null,            // New field in Places API
+    hours: formatOpeningHours(place.regularOpeningHours) // New field in Places API    
   };
 };
 

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import SearchBar from './components/SearchBar'
 import BusinessList from './components/BusinessList'
 import SortBar from './components/SortBar'
+import BusinessListSkeleton from './components/Skeletons/BusinessListSkeleton'
 import { selectSortedBusinesses, initializeGoogleMaps } from './store/placesSlice'
 
 import './App.css'
@@ -26,8 +27,11 @@ function App() {
       <h1>Ravenous</h1>
       {mapsError && (<div className="error-message">Failed to load Google Maps: {mapsError}</div>)}
       <SearchBar />
+
       {error && <div className="error-message">{error}</div>}
-      {isLoading && <div className="loading-message">Loading...</div>}
+
+      {isLoading && <BusinessListSkeleton count={6}/>}
+      
       {!isLoading && businesses.length === 0 && !error && (
         <div className="no-results">
           Search for restaurants to get started!
