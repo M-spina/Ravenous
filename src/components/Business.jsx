@@ -20,6 +20,7 @@ export default function Business({ business }) {
 
   return (
     <Card
+      data-testid="business-card"
       className="group relative h-[31rem] cursor-pointer border-0 bg-transparent shadow-none [perspective:1200px] transition-transform duration-300 hover:-translate-y-1 motion-reduce:transition-none sm:h-[30rem]"
       onClick={handleCardClick}
     >
@@ -41,9 +42,10 @@ export default function Business({ business }) {
       <div className={`relative size-full transform-gpu transform-3d transition-transform duration-700 ease-in-out motion-reduce:transition-none ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
         {/* FRONT SIDE */}
         <div
+          data-testid="business-card-front"
           className="absolute inset-0 flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg backface-hidden"
           aria-hidden={isFlipped}
-          inert={isFlipped ? '' : undefined}
+          inert={isFlipped}
         >
           <div className="relative h-48 shrink-0 overflow-hidden bg-muted sm:h-52">
             <img
@@ -88,9 +90,10 @@ export default function Business({ business }) {
 
         {/* BACK SIDE */}
         <div
+          data-testid="business-card-back"
           className="absolute inset-0 overflow-hidden rounded-xl border border-primary-foreground/20 bg-gradient-to-br from-primary-dark via-primary to-accent text-primary-foreground shadow-xl [transform:rotateY(180deg)] backface-hidden"
           aria-hidden={!isFlipped}
-          inert={!isFlipped ? '' : undefined}
+          inert={!isFlipped}
         >
           <div className="flex size-full flex-col overflow-y-auto p-6 pt-16">
             <div className="mb-5 border-b border-primary-foreground/25 pb-4 text-center">
