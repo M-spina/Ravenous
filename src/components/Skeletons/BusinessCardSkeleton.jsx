@@ -1,38 +1,25 @@
-import '../../Styles/Skeleton.css';
+import { Card } from '../ui/card';
+import { Skeleton } from '../ui/skeleton';
 
 export default function BusinessCardSkeleton() {
   return (
-    <div className="business-card skeleton-card">
-      <div className="business-card-inner">
-        <div className="business-card-face business-card-front">
-          {/* Image skeleton */}
-          <div className="skeleton skeleton-image"></div>
-          
-          {/* Content skeleton */}
-          <div className="business-info">
-            {/* Title */}
-            <div className="skeleton skeleton-title"></div>
-            
-            {/* Details section */}
-            <div className="business-details">
-              <div className="business-left">
-                <div className="skeleton skeleton-text skeleton-text-short"></div>
-                <div className="skeleton skeleton-text"></div>
-              </div>
-              <div className="business-right">
-                <div className="skeleton skeleton-text skeleton-text-short"></div>
-                <div className="skeleton skeleton-text"></div>
-              </div>
-            </div>
-            
-            {/* Rating section */}
-            <div className="business-rating">
-              <div className="skeleton skeleton-rating"></div>
-              <div className="skeleton skeleton-text skeleton-text-short"></div>
-            </div>
+    <Card className="h-[31rem] overflow-hidden border-border bg-card shadow-lg sm:h-[30rem]" aria-hidden="true">
+      <Skeleton className="h-48 w-full rounded-none sm:h-52" />
+      <div className="flex h-[calc(100%-12rem)] flex-col p-5 sm:h-[calc(100%-13rem)]">
+        <Skeleton className="h-6 w-3/4" />
+        <div className="mt-5 flex gap-3">
+          <Skeleton className="size-4 shrink-0 rounded-full" />
+          <div className="w-full space-y-2">
+            <Skeleton className="h-3.5 w-full" />
+            <Skeleton className="h-3.5 w-4/5" />
           </div>
         </div>
+        <div className="mt-auto flex items-center gap-3 border-t border-border pt-4">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-5 w-20" />
+          <Skeleton className="h-6 w-12 rounded-full" />
+        </div>
       </div>
-    </div>
+    </Card>
   );
 }
