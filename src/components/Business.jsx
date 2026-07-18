@@ -39,7 +39,7 @@ export default function Business({ business }) {
         {isFlipped ? <RotateCcw aria-hidden="true" /> : <RotateCw aria-hidden="true" />}
       </Button>
 
-      <div className={`relative size-full transform-gpu transform-3d transition-transform duration-700 ease-in-out motion-reduce:transition-none ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
+      <div className={`relative size-full transform-3d transition-transform duration-700 ease-in-out will-change-transform motion-reduce:transition-none ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
         {/* FRONT SIDE */}
         <div
           data-testid="business-card-front"
