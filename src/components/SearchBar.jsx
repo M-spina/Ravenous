@@ -4,7 +4,9 @@ import { useGeolocation } from '../hooks/useGeolocation';
 import { reverseGeocode } from '../utilities/geocodingService';
 import { setSearchTerm, setSearchLocation, addToSearchHistory } from '../store/searchSlice';
 import { setCoords, clearCoords, fetchPlaces } from '../store/placesSlice';
-import '../Styles/SearchBar.css';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { LoaderCircle, LocateFixed, Search } from 'lucide-react';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -53,25 +55,53 @@ export default function SearchBar() {
     dispatch(clearCoords());
   }
   return (
-    <div className="search-bar">
-      <form onSubmit={handleSearch}>
-        <div className="search-inputs">
-          <input
-            type="text"
-            placeholder="Search restaurants, cafes..."
-            value={term}
-            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-            required
-          />
-          <div className='location-wrapper'>
-            <LocationInput value={location} onChange={handleLocationChange} />
-            <button type="button" onClick={handleUseMyLocation} disabled={isLocating || !mapsLoaded || isLoading} title='Use My current location' className="geolocation-button">
-              {isLocating ? '⏳' : '📍'}
-            </button>
+    <div className="mx-auto w-full max-w-4xl rounded-2xl border border-primary-foreground/30 bg-card/95 p-4 shadow-2xl backdrop-blur-sm sm:p-5">
+      <form onSubmit={handleSearch} className="space-y-4">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-2 text-left">
+            <label htmlFor="restaurant-search" className="text-sm font-bold text-foreground">
+              What are you craving?
+            </label>
+            <div className="relative">
+              <Search aria-hidden="true" className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="restaurant-search"
+                type="text"
+                placeholder="Restaurants, cafes, cuisines..."
+                value={term}
+                onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+                className="h-12 pl-10"
+                required
+              />
+            </div>
+          </div>
+          <div className="space-y-2 text-left">
+            <label htmlFor="location-search" className="text-sm font-bold text-foreground">
+              Where?
+            </label>
+            <div className="flex min-w-0">
+              <LocationInput value={location} onChange={handleLocationChange} />
+              <Button
+                type="button"
+                variant="secondary"
+                size="icon"
+                onClick={handleUseMyLocation}
+                disabled={isLocating || !mapsLoaded || isLoading}
+                aria-label="Use my current location"
+                title="Use my current location"
+                className="h-12 rounded-l-none border border-l-0 border-input"
+              >
+                {isLocating ? <LoaderCircle aria-hidden="true" className="animate-spin" /> : <LocateFixed aria-hidden="true" />}
+              </Button>
+            </div>
           </div>
         </div>
-        <button type="submit" disabled={!mapsLoaded || isLoading || !term || !location}>{!mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search'}</button>
-        {geoError && <p className="geo-error">{geoError}</p>}
+        <Button type="submit" size="lg" className="h-12 w-full text-base" disabled={!mapsLoaded || isLoading || !term || !location}>
+          {isLoading && <LoaderCircle aria-hidden="true" className="animate-spin" />}
+          {!isLoading && <Search aria-hidden="true" />}
+          {!mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search restaurants'}
+        </Button>
+        {geoError && <p className="text-center text-sm font-medium text-destructive" role="alert">{geoError}</p>}
       </form>
     </div>
   );
