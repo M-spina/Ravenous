@@ -1,6 +1,7 @@
 import {useEffect, useState, useRef} from 'react';
 import { useAutocomplete } from '../hooks/useAutocomplete';
-import '../Styles/LocationInput.css';
+import { Input } from './ui/input';
+import { LoaderCircle, MapPin } from 'lucide-react';
 
 export default function LocationInput({ value, onChange }) {
 
@@ -86,9 +87,11 @@ export default function LocationInput({ value, onChange }) {
     };
 
     return (
-        <div className="location-input-container" ref={dropdownRef}>
-            <input
+        <div className="relative min-w-0 flex-1" ref={dropdownRef}>
+            <MapPin aria-hidden="true" className="pointer-events-none absolute left-3.5 top-6 z-10 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
                 ref={inputRef}
+                id="location-search"
                 type="text"
                 placeholder='Where?'
                 value={inputValue}
@@ -99,22 +102,30 @@ export default function LocationInput({ value, onChange }) {
                         setShowDropdown(true)
                     }
                 }}
-                className='location-input'
+                className="h-12 rounded-r-none border-r-0 pl-10"
                 autoComplete='off'
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={showDropdown}
+                aria-controls="location-suggestions"
+                aria-activedescendant={activeIndex >= 0 ? `location-suggestion-${activeIndex}` : undefined}
             />
 
             {showDropdown && suggestions.length > 0 && (
-                <ul className="suggestions-dropdown">
+                <ul id="location-suggestions" role="listbox" className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 max-h-64 list-none overflow-y-auto rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-xl">
                     {suggestions.map((suggestion, index) => (
                         <li
                             key={suggestion.placeId}
-                            className={`suggestion-item ${index === activeIndex ? 'active' : ''}`}
+                            id={`location-suggestion-${index}`}
+                            role="option"
+                            aria-selected={index === activeIndex}
+                            className={`flex cursor-pointer flex-col gap-0.5 rounded-lg px-3 py-2.5 text-left transition-colors ${index === activeIndex ? 'bg-muted' : 'hover:bg-muted/70'}`}
                             onClick={() => handleSelect(suggestion)}
                             onMouseEnter={() => setActiveIndex(index)}
                         >
-                            <span className="suggestion-main">{suggestion.mainText}</span>
+                            <span className="text-sm font-semibold text-foreground">{suggestion.mainText}</span>
                             {suggestion.secondaryText && (
-                                <span className="suggestion-secondary">{suggestion.secondaryText}</span>
+                                <span className="text-xs text-muted-foreground">{suggestion.secondaryText}</span>
                             )}
                         </li>
                     ))}
@@ -122,8 +133,11 @@ export default function LocationInput({ value, onChange }) {
             )}
 
             {showDropdown && isLoading && (
-                <div className="suggestions-dropdown">
-                    <div className="suggestion-loading">Searching locations...</div>
+                <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-xl">
+                    <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                        <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
+                        Searching locations...
+                    </div>
                 </div>
             )}
         </div>

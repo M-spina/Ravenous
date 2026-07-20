@@ -1,4 +1,4 @@
-import '../styles/PriceLevel.css';
+import { Badge } from './ui/badge';
 
 export default function PriceLevel({ priceLevel }) {
     if(!priceLevel) return null;
@@ -23,15 +23,15 @@ export default function PriceLevel({ priceLevel }) {
         const dollars = '$'.repeat(Math.min(numericLevel, 4)); // Cap at 4 dollars
         const emptyDollars = '$'.repeat(Math.max(0, 4 - numericLevel)); // Fill the rest with empty dollars for consistent width
 
-        return {dollars, emptyDollars};
+        return {dollars, emptyDollars, numericLevel};
     }
 
-    const { dollars, emptyDollars } = getPriceDisplay(priceLevel);
+    const { dollars, emptyDollars, numericLevel } = getPriceDisplay(priceLevel);
 
     return (
-        <div className="price-level">
-            <span className="price-active">{dollars}</span>
-            <span className="price-inactive">{emptyDollars}</span>
-        </div>
+        <Badge variant="outline" className="gap-0 border-accent/30 bg-accent/10 px-2 py-0.5 font-black" aria-label={`Price level ${numericLevel} out of 4`}>
+            <span className="text-accent">{dollars}</span>
+            <span className="text-border">{emptyDollars}</span>
+        </Badge>
     );
 }

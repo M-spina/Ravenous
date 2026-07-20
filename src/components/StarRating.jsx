@@ -1,5 +1,3 @@
-import '../Styles/StarRating.css';
-
 export default function StarRating({rating}) {
     // convert rating into an array of star types (full, half, empty)
     const getStars = (rating) => {
@@ -26,21 +24,22 @@ export default function StarRating({rating}) {
     const stars = getStars(rating);
 
     return (
-        <div className="star-rating">
-            {stars.map((type, index) => (
-                <span key={index} className={`star star-${type}`}>
-                    {type === 'full' && <span className="star-icon">★</span>}
-                    {type === 'half' && (
-                        <span className="star-half-wrapper">
-                            <span className="star-icon star-half-fill">★</span>
-                            <span className="star-icon star-half-empty">★</span>
-                        </span>
-                    )}
-                    {type === 'empty' && <span className="star-icon">☆</span>}
-                </span>
-                
-            ))}
-            <span className="rating-number">{rating.toFixed(1)}</span>
+        <div className="flex items-center gap-1" aria-label={`${rating.toFixed(1)} out of 5 stars`}>
+            <span className="flex items-center gap-px" aria-hidden="true">
+                {stars.map((type, index) => (
+                    <span key={index} className="relative inline-block text-base leading-none">
+                        {type === 'full' && <span className="text-highlight">★</span>}
+                        {type === 'half' && (
+                            <span className="relative inline-block">
+                                <span className="absolute left-0 top-0 w-1/2 overflow-hidden text-highlight">★</span>
+                                <span className="text-border">★</span>
+                            </span>
+                        )}
+                        {type === 'empty' && <span className="text-border">☆</span>}
+                    </span>
+                ))}
+            </span>
+            <span className="text-sm font-black text-foreground">{rating.toFixed(1)}</span>
         </div>
     )
 }
