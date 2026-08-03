@@ -14,6 +14,7 @@ vi.mock('../hooks/useAutocomplete', () => ({
     suggestions: [],
     isLoading: false,
     fetchSuggestions: vi.fn(),
+    clearSuggestions: vi.fn(),
     resetSession: vi.fn(),
   }),
 }))

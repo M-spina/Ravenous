@@ -7,7 +7,7 @@ export default function LocationInput({ value, onChange }) {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [activeIndex, setActiveIndex] = useState(-1);
-    const { suggestions, isLoading,  fetchSuggestions, resetSession } = useAutocomplete();
+    const { suggestions, isLoading, fetchSuggestions, clearSuggestions, resetSession } = useAutocomplete();
     const dropdownRef = useRef(null);
     const inputRef = useRef(null);
     const debounceTimeoutRef = useRef(null);
@@ -23,6 +23,13 @@ export default function LocationInput({ value, onChange }) {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Clear a pending debounce timer when the input unmounts
+    useEffect(() => () => {
+        if (debounceTimeoutRef.current) {
+            clearTimeout(debounceTimeoutRef.current);
+        }
+    }, []);
+
     // Handle input changes with debouncing
     const handleInputChange = (e) => {
         const newValue = e.target.value;
@@ -31,21 +38,29 @@ export default function LocationInput({ value, onChange }) {
         // Clear any existing debounce timeout
         if (debounceTimeoutRef.current) {
             clearTimeout(debounceTimeoutRef.current);
+            debounceTimeoutRef.current = null;
+        }
+
+        if(newValue.length < 2) {
+            clearSuggestions();
+            setShowDropdown(false);
+            return;
         }
 
         // Debounce the fetchSuggestions call by 300ms
         debounceTimeoutRef.current = setTimeout(() => {
-            if(newValue.length >= 2) {
-                fetchSuggestions(newValue);
-                setShowDropdown(true);
-            } else {
-                setShowDropdown(false);
-            }
+            debounceTimeoutRef.current = null;
+            fetchSuggestions(newValue);
+            setShowDropdown(true);
         }, 300);
     };
 
     //Handle selection of a suggestion
     const handleSelect = (suggestion) => {
+        if (debounceTimeoutRef.current) {
+            clearTimeout(debounceTimeoutRef.current);
+            debounceTimeoutRef.current = null;
+        }
         onChange(suggestion.text); // pass selected value to parent (searchBar)
         setShowDropdown(false);
         setActiveIndex(-1);
