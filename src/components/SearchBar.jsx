@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import LocationInput from './LocationInput';
 import { useGeolocation } from '../hooks/useGeolocation';
@@ -10,6 +11,7 @@ import { LoaderCircle, LocateFixed, Search } from 'lucide-react';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
+  const [reverseGeocodeError, setReverseGeocodeError] = useState(null);
 
   const { term, location } = useSelector((state) => state.search);
   const { coords, isLoading, mapsLoaded } = useSelector((state) => state.places);
@@ -33,6 +35,7 @@ export default function SearchBar() {
 
   // Function to handle "Use My Location" button click
   const handleUseMyLocation = async () => {
+    setReverseGeocodeError(null);
     // step 1: get user's current coordinates
     const coords = await getUserLocation();
     if(coords) {
@@ -45,12 +48,14 @@ export default function SearchBar() {
         console.log('Reverse geocoding successful ✅', locationName);
       } catch (error) {
         console.error('Error during reverse geocoding: ❌', error);
+        setReverseGeocodeError('We found your position, but couldn’t identify your location. Enter it manually or try again.');
       }
     }
   }
 
   // Function to handle manual location input changes
   const handleLocationChange = (newLocation) => {
+    setReverseGeocodeError(null);
     dispatch(setSearchLocation(newLocation));
     dispatch(clearCoords());
   }
@@ -101,7 +106,11 @@ export default function SearchBar() {
           {!isLoading && <Search aria-hidden="true" />}
           {!mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search restaurants'}
         </Button>
-        {geoError && <p className="text-center text-sm font-medium text-destructive" role="alert">{geoError}</p>}
+        {(reverseGeocodeError || geoError) && (
+          <p className="text-center text-sm font-medium text-destructive" role="alert">
+            {reverseGeocodeError || geoError}
+          </p>
+        )}
       </form>
     </div>
   );

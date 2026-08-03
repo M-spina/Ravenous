@@ -45,7 +45,7 @@ export const useGeolocation = () => {
             }, { // Options to improve accuracy and handle timeouts
                 enableHighAccuracy: true,
                 timeout: 10000, // 10 seconds
-                maximumAge: 30000 // 5 minutes
+                maximumAge: 5 * 60 * 1000 // 5 minutes
             });
         })
 
