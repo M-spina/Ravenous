@@ -7,5 +7,5 @@ export const store = configureStore({
         places: placesReducer,
         search: searchReducer,
     },
-    devTools: process.env.NODE_ENV !== 'production', // Enable Redux DevTools in development only
+    devTools: !import.meta.env.PROD, // Enable Redux DevTools in development only
 });

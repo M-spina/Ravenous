@@ -5,7 +5,7 @@ export const loadGoogleMapsScript = async () => {
     try {
         if (!placesLibrary) {
             // Use Google's built-in importLibrary from the bootstrap loader
-            placesLibrary = await google.maps.importLibrary("places");
+            placesLibrary = await globalThis.google.maps.importLibrary("places");
             console.log('Google Maps Places library loaded successfully ✅');
         }
         return placesLibrary;
