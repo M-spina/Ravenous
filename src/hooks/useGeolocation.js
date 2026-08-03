@@ -24,7 +24,7 @@ export const useGeolocation = () => {
                     case error.PERMISSION_DENIED:
                         message = 'Permission denied. Please allow location access and try again.';
                         break;
-                    case error.POSITION_UNAVAILABLE:
+                    case error.POSITION_UNAVAILABLE: {
                         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
                         const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
                         if (isSafari && isLocalHost) {
@@ -33,6 +33,7 @@ export const useGeolocation = () => {
                             message = 'Position unavailable. Please try again later.';
                         }
                         break;
+                    }
                     case error.TIMEOUT:
                         message = 'Location request timed out. Please try again.';
                         break;

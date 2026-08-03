@@ -1,6 +1,6 @@
 export const reverseGeocode = async (coords) => {
     try {
-        const geocoder = new google.maps.Geocoder();
+        const geocoder = new globalThis.google.maps.Geocoder();
         const response = await geocoder.geocode({ 
             location: { lat: coords.lat, lng: coords.lng }
         });

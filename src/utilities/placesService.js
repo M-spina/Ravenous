@@ -13,7 +13,7 @@ export const searchPlaces = async (query, location, coords = null) => {
 
         if (coords) {
             request.locationBias = {
-                center: new google.maps.LatLng(coords.lat, coords.lng),// Bias results to the user's current location
+                center: new globalThis.google.maps.LatLng(coords.lat, coords.lng),// Bias results to the user's current location
                 radius: 5000 // Bias results to a 5km radius around the user's location
             };
             console.log('Using location bias with coordinates ✅', coords);
