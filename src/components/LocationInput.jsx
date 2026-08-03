@@ -5,18 +5,12 @@ import { LoaderCircle, MapPin } from 'lucide-react';
 
 export default function LocationInput({ value, onChange }) {
 
-    const [inputValue, setInputValue] = useState(value || '');
     const [showDropdown, setShowDropdown] = useState(false);
     const [activeIndex, setActiveIndex] = useState(-1);
     const { suggestions, isLoading,  fetchSuggestions, resetSession } = useAutocomplete();
     const dropdownRef = useRef(null);
     const inputRef = useRef(null);
     const debounceTimeoutRef = useRef(null);
-
-    // sync with parent value changes
-    useEffect(() => {
-        setInputValue(value || '');
-    }, [value]);
 
     // close dropdown when clicking outside
     useEffect(() => {
@@ -32,7 +26,7 @@ export default function LocationInput({ value, onChange }) {
     // Handle input changes with debouncing
     const handleInputChange = (e) => {
         const newValue = e.target.value;
-        setInputValue(newValue);
+        onChange(newValue);
         setActiveIndex(-1);
         // Clear any existing debounce timeout
         if (debounceTimeoutRef.current) {
@@ -52,7 +46,6 @@ export default function LocationInput({ value, onChange }) {
 
     //Handle selection of a suggestion
     const handleSelect = (suggestion) => {
-        setInputValue(suggestion.text);
         onChange(suggestion.text); // pass selected value to parent (searchBar)
         setShowDropdown(false);
         setActiveIndex(-1);
@@ -94,7 +87,7 @@ export default function LocationInput({ value, onChange }) {
                 id="location-search"
                 type="text"
                 placeholder='Where?'
-                value={inputValue}
+                value={value || ''}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 onFocus={() => {
