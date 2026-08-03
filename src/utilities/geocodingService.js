@@ -22,13 +22,11 @@ export const reverseGeocode = async (coords) => {
                 ? `${city}, ${country}`
                 : bestResult.formatted_address; // Fallback to the full formatted address if city/country is not available
 
-            console.log('Reverse geocoding successful ✅', { locationName, city, country });
             return locationName;
         }
 
         throw new Error('No results found for the given coordinates');
-    } catch (error) {
-        console.error('Error during reverse geocoding ❌:', error);
+    } catch {
         throw new Error('Failed to reverse geocode location. Please try again.');
     }
 };

@@ -44,10 +44,7 @@ export default function SearchBar() {
         const locationName = await reverseGeocode(coords);
         dispatch(setSearchLocation(locationName)); // Update the location in the search slice
         dispatch(setCoords(coords)); // Update the coordinates in the places slice
-        // step 3: pass the coordinates up to the parent component for location biasing in search
-        console.log('Reverse geocoding successful ✅', locationName);
-      } catch (error) {
-        console.error('Error during reverse geocoding: ❌', error);
+      } catch {
         setReverseGeocodeError('We found your position, but couldn’t identify your location. Enter it manually or try again.');
       }
     }

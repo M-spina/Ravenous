@@ -2,17 +2,11 @@
 let placesLibrary = null;
 
 export const loadGoogleMapsScript = async () => {
-    try {
-        if (!placesLibrary) {
-            // Use Google's built-in importLibrary from the bootstrap loader
-            placesLibrary = await globalThis.google.maps.importLibrary("places");
-            console.log('Google Maps Places library loaded successfully ✅');
-        }
-        return placesLibrary;
-    } catch (error) {
-        console.error('Failed to load Google Maps Places library:', error);
-        throw error;
+    if (!placesLibrary) {
+        // Use Google's built-in importLibrary from the bootstrap loader
+        placesLibrary = await globalThis.google.maps.importLibrary("places");
     }
+    return placesLibrary;
 };
 
 export const getPlacesLibrary = () => {
