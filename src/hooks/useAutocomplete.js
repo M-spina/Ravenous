@@ -64,12 +64,13 @@ export const useAutocomplete = () => {
 
             if(requestId === requestIdRef.current) {
                 setSuggestions(formattedSuggestions);
-                console.log('Autocomplete suggestions fetched ✅', formattedSuggestions);
             }
         }
-        catch (error) {
+        catch {
             if(requestId === requestIdRef.current) {
-                console.error("Error fetching autocomplete suggestions ❌:", error);
+                if (import.meta.env.DEV) {
+                    console.error('Autocomplete request failed.');
+                }
                 setSuggestions([]);
             }
         }

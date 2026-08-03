@@ -18,9 +18,7 @@ export const usePlaces = () => {
             try {
                 await loadGoogleMapsScript(); // This now loads AND stores the library
                 setMapsLoaded(true);
-                console.log('Google Maps initialized successfully ✅');
-            } catch (error) {
-                console.error('Error initializing Google Maps: ❌', error);
+            } catch {
                 setError('Failed to load Google Maps. Please try again later.');
             }
         }
@@ -30,12 +28,10 @@ export const usePlaces = () => {
     // Functions to set user coordinates in the ref without causing re-renders
     const setCoords = (coords) => {
         coordsRef.current = coords;
-        console.log('User coordinates set in ref ✅', coords);
     }
     // Clear coordinates from the ref when user opts out of location-based search or when location becomes unavailable
     const clearCoords = () => {
         coordsRef.current = null;
-        console.log('User coordinates cleared from ref ✅');
     }
 
     // sort businesses based on the selected criteria
@@ -66,14 +62,12 @@ export const usePlaces = () => {
         setError(null);
 
         try {
-            console.log(`Searching for "${term}" in "${location}"...`);
             // Pass the current coordinates from the ref to the search function for location biasing
             const places = await searchPlaces(term, location, coordsRef.current);
             const transformedBusinesses = transformPlacesResponse(places);
             setBusinesses(transformedBusinesses);
             setSortBy('bestMatch'); // Reset sort to default when new search results come in
-        } catch (error) {
-            console.error('Error during search: ❌', error);
+        } catch {
             setError('An error occurred while searching for businesses. Please try again.');
             setBusinesses([]);
         } finally {
@@ -83,7 +77,6 @@ export const usePlaces = () => {
 
     const handleSortChange = (sortOption) => {
         setSortBy(sortOption);
-        console.log(`Sort option changed to: ${sortOption} ✅`);
     }
 
     return { businesses: sortedBusinesses, isLoading, error, mapsLoaded, handleSearch, setCoords, clearCoords, sortBy, handleSortChange };

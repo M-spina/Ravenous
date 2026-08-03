@@ -16,7 +16,6 @@ export const useGeolocation = () => {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                console.log('Geolocation coordinates retrieved ✅', coords);
                 resolve(coords); 
             }, (error) => { // Handle different geolocation errors with specific messages
                 let message;
@@ -40,7 +39,6 @@ export const useGeolocation = () => {
                     default:
                         message = 'An unknown error occurred while retrieving location.';
                 }
-                console.error("Geolocation error ❌:", message);
                 reject(new Error(message));
             }, { // Options to improve accuracy and handle timeouts
                 enableHighAccuracy: true,
@@ -58,7 +56,6 @@ export const useGeolocation = () => {
             const coords = await getCurrentLocation();
             return coords;
         } catch (error) {
-            console.error('Error getting user location ❌:', error);
             setGeoError(error.message);
         } finally {
             setIsLocating(false);

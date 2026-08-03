@@ -9,10 +9,11 @@ export const initializeGoogleMaps = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             await loadGoogleMapsScript(); // This now loads AND stores the library
-            console.log('Google Maps initialized successfully ✅');
             return true; // Return a success value if needed
         } catch (error) {
-            console.error('Error initializing Google Maps: ❌', error);
+            if (import.meta.env.DEV) {
+                console.error('Google Maps initialization failed.');
+            }
             return rejectWithValue(error.message || 'Failed to load Google Maps. Please try again later.');
         }
     }
@@ -23,13 +24,13 @@ export const fetchPlaces = createAsyncThunk(
     'search/fetchPlaces',
     async ({ term, location, coords }, { rejectWithValue }) => {
         try {
-            console.log('Fetching places with parameters ✅', { term, location, coords });
             const places = await searchPlaces(term, location, coords);
             const transformedBusinesses = transformPlacesResponse(places);
-            console.log('Transformed businesses ✅', transformedBusinesses);
             return transformedBusinesses;
-        } catch (error) {
-            console.error('Error fetching places: ❌', error);
+        } catch {
+            if (import.meta.env.DEV) {
+                console.error('Place search failed.');
+            }
             return rejectWithValue('An error occurred while searching for businesses. Please try again.');
         }
     }
@@ -49,15 +50,12 @@ const placesSlice = createSlice({
     reducers: {
         setCoords: (state, action) => {
             state.coords = action.payload;
-            console.log('User coordinates set in state ✅', state.coords);
         },
         clearCoords: (state) => {
             state.coords = null;
-            console.log('User coordinates cleared from state ✅');
         },
         setSortBy: (state, action) => {
             state.sortBy = action.payload;
-            console.log(`Sort option changed to: ${state.sortBy} ✅`);
         }
     },
     extraReducers: (builder) => {
@@ -65,19 +63,16 @@ const placesSlice = createSlice({
             .addCase(fetchPlaces.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
-                console.log('Fetch places pending... ✅');
             })
             .addCase(fetchPlaces.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.businesses = action.payload;
                 state.sortBy = 'bestMatch'; // Reset sort to default when new search results come in
-                console.log('Fetch places fulfilled ✅', state.businesses);
             })
             .addCase(fetchPlaces.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'An error occurred while searching for businesses. Please try again.';
                 state.businesses = [];
-                console.error('Fetch places rejected ❌', state.error);
             })
             // Handle Google Maps initialization
             .addCase(initializeGoogleMaps.pending, (state) => {
@@ -86,7 +81,6 @@ const placesSlice = createSlice({
             })
             .addCase(initializeGoogleMaps.fulfilled, (state) => {
                 state.mapsLoaded = true;
-                console.log('Google Maps loaded and ready to use ✅');
             })
             .addCase(initializeGoogleMaps.rejected, (state, action) => {
                 state.mapsLoaded = false;

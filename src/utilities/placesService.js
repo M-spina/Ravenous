@@ -16,15 +16,12 @@ export const searchPlaces = async (query, location, coords = null) => {
                 center: new globalThis.google.maps.LatLng(coords.lat, coords.lng),// Bias results to the user's current location
                 radius: 5000 // Bias results to a 5km radius around the user's location
             };
-            console.log('Using location bias with coordinates ✅', coords);
         }
         
         const { places } = await Place.searchByText(request);
-        console.log(`Places search successful (New API): ✅`, places);
         return places;
 
     } catch (error) {
-        console.error('Error searching for places: ❌', error);
         throw new Error(`Failed to search for places: ${error.message}`);
     }
 };
