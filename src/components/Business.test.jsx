@@ -30,6 +30,18 @@ describe('Business', () => {
     expect(screen.getByLabelText('Price level 3 out of 4')).toBeInTheDocument()
   })
 
+  it('uses contrast-safe colors on the details face', () => {
+    render(<Business business={business} />)
+
+    const detailsFace = screen.getByTestId('business-card-back')
+    const detailsBadge = screen.getByText('Restaurant details')
+
+    expect(detailsFace).toHaveClass('from-primary-dark', 'via-primary', 'to-primary', 'text-primary-foreground')
+    expect(detailsFace).not.toHaveClass('to-accent')
+    expect(detailsBadge).toHaveClass('bg-primary-foreground/10', 'text-primary-foreground')
+    expect(detailsBadge).not.toHaveClass('bg-primary-foreground/15')
+  })
+
   it('flips from clicks on the card and flips back', async () => {
     const user = userEvent.setup()
     render(<Business business={business} />)
