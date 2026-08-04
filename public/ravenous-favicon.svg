@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Ravenous</title>
+  <rect width="64" height="64" rx="14" fill="#922f21" />
+  <circle cx="32" cy="32" r="23" fill="#b63a24" stroke="#f4b942" stroke-width="3" />
+  <g fill="none" stroke="#fffdf9" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
+    <path d="m17 15 30 34" />
+    <path d="m13 20 8-7m-5 10 8-7m-5 10 8-7" />
+    <path d="m42 23-25 26" />
+    <ellipse cx="46" cy="17" rx="5" ry="7" transform="rotate(42 46 17)" />
+  </g>
+</svg>
