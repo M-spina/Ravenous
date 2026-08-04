@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
   // Get state from the Redux store using selectors
   const businesses = useSelector(selectSortedBusinesses);
-  const { isLoading, error, mapsError } = useSelector((state) => state.places);
+  const { isLoading, hasSearched, error, mapsError } = useSelector((state) => state.places);
 
   
   // Initialize Google Maps when the app mounts so it's ready to use for location-based search and displaying maps in business details
@@ -67,9 +67,13 @@ function App() {
             <span className="mx-auto mb-4 grid size-14 place-items-center rounded-full bg-muted text-primary">
               <SearchX aria-hidden="true" className="size-7" />
             </span>
-            <h2 className="text-xl font-bold text-foreground">Ready when you are</h2>
+            <h2 className="text-xl font-bold text-foreground">
+              {hasSearched ? 'No restaurants found' : 'Ready when you are'}
+            </h2>
             <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-              Search for restaurants to get started!
+              {hasSearched
+                ? 'Try a different search term or location.'
+                : 'Search for restaurants to get started!'}
             </p>
           </section>
         )}

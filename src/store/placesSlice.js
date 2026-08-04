@@ -41,6 +41,7 @@ const placesSlice = createSlice({
     initialState: {
         businesses: [],
         isLoading: false,
+        hasSearched: false,
         error: null,
         sortBy: 'bestMatch', // Default sort option
         coords: null, // Store user coordinates in the slice to make them accessible for location biasing in searches
@@ -62,6 +63,7 @@ const placesSlice = createSlice({
         builder
             .addCase(fetchPlaces.pending, (state) => {
                 state.isLoading = true;
+                state.hasSearched = true;
                 state.error = null;
             })
             .addCase(fetchPlaces.fulfilled, (state, action) => {
