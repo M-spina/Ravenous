@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import Business from './Business'
 
@@ -71,27 +71,30 @@ describe('Business', () => {
     expect(screen.getByRole('button', { name: `Show details for ${business.name}` })).toHaveAttribute('aria-pressed', 'false')
   })
 
-  it('keeps back-face links and details controls from changing flip state', async () => {
+  it('keeps back-face contact links from changing flip state', async () => {
     const user = userEvent.setup()
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
     render(<Business business={business} />)
 
     await user.click(screen.getByTestId('business-card'))
     const toggle = screen.getByRole('button', { name: `Show summary for ${business.name}` })
 
     const phoneLink = screen.getByRole('link', { name: business.phone })
+    expect(phoneLink).toHaveAttribute('href', `tel:${business.phone}`)
     phoneLink.addEventListener('click', (event) => event.preventDefault())
     fireEvent.click(phoneLink)
     expect(toggle).toHaveAttribute('aria-pressed', 'true')
 
     const mapLink = screen.getByRole('link', { name: 'View on Google Maps' })
+    expect(mapLink).toHaveAttribute('href', business.website)
+    expect(mapLink).toHaveAttribute('target', '_blank')
+    expect(mapLink).toHaveAttribute('rel', 'noopener noreferrer')
     mapLink.addEventListener('click', (event) => event.preventDefault())
     fireEvent.click(mapLink)
     expect(toggle).toHaveAttribute('aria-pressed', 'true')
 
-    await user.click(screen.getByRole('button', { name: 'View Full Details' }))
-    expect(alertSpy).toHaveBeenCalledWith(`View details for ${business.name} (coming in Phase 3b!)`)
-    expect(toggle).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText(business.hours)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'View Full Details' })).not.toBeInTheDocument()
+    expect(screen.queryByText(/Phase 3b/i)).not.toBeInTheDocument()
   })
 
   it('handles missing optional contact and price data', async () => {
