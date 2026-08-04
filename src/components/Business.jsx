@@ -103,7 +103,7 @@ export default function Business({ business }) {
               <h3 className="text-xl font-black leading-tight text-primary-foreground">{business.name}</h3>
             </div>
 
-            <div className="space-y-3">
+            <div className="my-auto space-y-3">
               <div className="flex items-start gap-3 rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 p-3.5 backdrop-blur-sm">
                 <Phone aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
                 <span className="min-w-0 text-sm leading-relaxed">
@@ -133,20 +133,6 @@ export default function Business({ business }) {
                 <span className="min-w-0 whitespace-pre-line text-sm leading-relaxed">{business.hours || 'Hours unavailable'}</span>
               </div>
             </div>
-
-            <Button
-              type="button"
-              variant="secondary"
-              className="mt-auto w-full shadow-lg"
-              onClick={(e) => {
-                preventFlip(e);
-                // TODO: Navigate to detail page in Phase 3b
-                alert(`View details for ${business.name} (coming in Phase 3b!)`);
-              }}
-            >
-              View Full Details
-              <ExternalLink aria-hidden="true" />
-            </Button>
           </div>
         </div>
       </div>
