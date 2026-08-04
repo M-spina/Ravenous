@@ -91,13 +91,13 @@ export default function Business({ business }) {
         {/* BACK SIDE */}
         <div
           data-testid="business-card-back"
-          className="absolute inset-0 overflow-hidden rounded-xl border border-primary-foreground/20 bg-gradient-to-br from-primary-dark via-primary to-accent text-primary-foreground shadow-xl [transform:rotateY(180deg)] backface-hidden"
+          className="absolute inset-0 overflow-hidden rounded-xl border border-primary-foreground/20 bg-gradient-to-br from-primary-dark via-primary to-primary text-primary-foreground shadow-xl [transform:rotateY(180deg)] backface-hidden"
           aria-hidden={!isFlipped}
           inert={!isFlipped}
         >
           <div className="flex size-full flex-col overflow-y-auto p-6 pt-16">
             <div className="mb-5 border-b border-primary-foreground/25 pb-4 text-center">
-              <Badge className="mb-3 border border-primary-foreground/30 bg-primary-foreground/15 text-primary-foreground">
+              <Badge className="mb-3 border border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground">
                 Restaurant details
               </Badge>
               <h3 className="text-xl font-black leading-tight text-primary-foreground">{business.name}</h3>
