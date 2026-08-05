@@ -16,7 +16,7 @@ const business = {
 }
 
 const state = (places = {}) => ({
-  search: { term: '', location: '', searchHistory: [] },
+  search: { term: '', location: '' },
   places: {
     businesses: [],
     isLoading: false,

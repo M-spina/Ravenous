@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LocationInput from './LocationInput';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { reverseGeocode } from '../utilities/geocodingService';
-import { setSearchTerm, setSearchLocation, addToSearchHistory } from '../store/searchSlice';
+import { setSearchTerm, setSearchLocation } from '../store/searchSlice';
 import { setCoords, clearCoords, fetchPlaces } from '../store/placesSlice';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -28,8 +28,6 @@ export default function SearchBar() {
     if (term && location) {
       // Pass the current coordinates from the places slice to the fetchPlaces thunk for location biasing in search results
       dispatch(fetchPlaces({ term, location, coords }));
-      //optinal: store search term and location in search history for future "recent searches" feature
-      dispatch(addToSearchHistory({ term, location }));
     }
   };
 

@@ -1,5 +1,6 @@
 // Store the loaded library so we can reuse it
 let placesLibrary = null;
+let geocodingLibrary = null;
 
 export const loadGoogleMapsScript = async () => {
     if (!placesLibrary) {
@@ -14,4 +15,11 @@ export const getPlacesLibrary = () => {
         throw new Error('Places library not loaded yet. Call loadGoogleMapsScript() first.');
     }
     return placesLibrary;
+};
+
+export const loadGeocodingLibrary = async () => {
+    if (!geocodingLibrary) {
+        geocodingLibrary = await globalThis.google.maps.importLibrary("geocoding");
+    }
+    return geocodingLibrary;
 };

@@ -1,6 +1,9 @@
+import { loadGeocodingLibrary } from './loadGoogleMaps.js';
+
 export const reverseGeocode = async (coords) => {
     try {
-        const geocoder = new globalThis.google.maps.Geocoder();
+        const { Geocoder } = await loadGeocodingLibrary();
+        const geocoder = new Geocoder();
         const response = await geocoder.geocode({ 
             location: { lat: coords.lat, lng: coords.lng }
         });

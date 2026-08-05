@@ -33,12 +33,12 @@ const getUserLocation = vi.fn()
 const reverseGeocodeErrorMessage = 'We found your position, but couldn’t identify your location. Enter it manually or try again.'
 
 const state = ({ mapsLoaded, isLoading = false, term = 'pizza', location = 'London' }) => ({
-  search: { term, location, searchHistory: [] },
+  search: { term, location },
   places: { coords: null, mapsLoaded, isLoading },
 })
 
 const realState = ({ location = '', coords = null } = {}) => ({
-  search: { term: 'pizza', location, searchHistory: [] },
+  search: { term: 'pizza', location },
   places: {
     businesses: [],
     isLoading: false,

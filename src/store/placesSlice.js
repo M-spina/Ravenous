@@ -19,7 +19,7 @@ export const initializeGoogleMaps = createAsyncThunk(
     }
 );
 
-// Async thunk to handle searching for places(replaces the search function in usePlaces)
+// Async thunk to handle searching for places
 export const fetchPlaces = createAsyncThunk(
     'search/fetchPlaces',
     async ({ term, location, coords }, { rejectWithValue }) => {
