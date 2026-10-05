@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import SearchBar from './components/SearchBar'
+import SiteFooter from './components/SiteFooter'
 import BusinessList from './components/BusinessList'
 import SortBar from './components/SortBar'
 import BusinessListSkeleton from './components/Skeletons/BusinessListSkeleton'
@@ -84,6 +85,7 @@ function App() {
           </>
         )}
       </main>
+      <SiteFooter />
     </div>
   )
 }

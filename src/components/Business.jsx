@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PhotoAttributions, PlaceAttributions } from './Attributions';
 import StarRating from './StarRating';
 import PriceLevel from './PriceLevel';
 import { Badge } from './ui/badge';
@@ -19,9 +20,10 @@ export default function Business({ business }) {
   };
 
   return (
+    <article className="min-w-0">
     <Card
       data-testid="business-card"
-      className="group relative h-[31rem] cursor-pointer border-0 bg-transparent shadow-none [perspective:1200px] transition-transform duration-300 hover:-translate-y-1 motion-reduce:transition-none sm:h-[30rem]"
+      className="group relative cursor-pointer border-0 bg-transparent shadow-none [perspective:1200px] transition-transform duration-300 hover:-translate-y-1 motion-reduce:transition-none"
       onClick={handleCardClick}
     >
       <Button
@@ -39,14 +41,15 @@ export default function Business({ business }) {
         {isFlipped ? <RotateCcw aria-hidden="true" /> : <RotateCw aria-hidden="true" />}
       </Button>
 
-      <div className={`relative size-full transform-3d transition-transform duration-700 ease-in-out will-change-transform motion-reduce:transition-none ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
+      <div className={`relative grid transform-3d transition-transform duration-700 ease-in-out will-change-transform motion-reduce:transition-none ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
         {/* FRONT SIDE */}
         <div
           data-testid="business-card-front"
-          className="absolute inset-0 flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg backface-hidden"
+          className="col-start-1 row-start-1 flex min-h-[31rem] min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg backface-hidden"
           aria-hidden={isFlipped}
           inert={isFlipped}
         >
+          <figure className="m-0 shrink-0">
           <div className="relative h-48 shrink-0 overflow-hidden bg-muted sm:h-52">
             <img
               src={business.imageUrl || business.imageSrc}
@@ -58,6 +61,9 @@ export default function Business({ business }) {
               <span className="truncate">{business.category}</span>
             </Badge>
           </div>
+
+          <PhotoAttributions attributions={business.photoAttributions} />
+          </figure>
 
           <div className="flex min-h-0 flex-1 flex-col p-5 text-left">
             <h3 className="line-clamp-2 pr-9 text-xl font-black leading-tight tracking-tight text-foreground">
@@ -91,7 +97,7 @@ export default function Business({ business }) {
         {/* BACK SIDE */}
         <div
           data-testid="business-card-back"
-          className="absolute inset-0 overflow-hidden rounded-xl border border-primary-foreground/20 bg-gradient-to-br from-primary-dark via-primary to-primary text-primary-foreground shadow-xl [transform:rotateY(180deg)] backface-hidden"
+          className="col-start-1 row-start-1 min-h-[31rem] min-w-0 overflow-hidden rounded-xl border border-primary-foreground/20 bg-gradient-to-br from-primary-dark via-primary to-primary text-primary-foreground shadow-xl [transform:rotateY(180deg)] backface-hidden"
           aria-hidden={!isFlipped}
           inert={!isFlipped}
         >
@@ -137,5 +143,7 @@ export default function Business({ business }) {
         </div>
       </div>
     </Card>
+    <PlaceAttributions attributions={business.placeAttributions} />
+    </article>
   )
 }

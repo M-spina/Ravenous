@@ -20,6 +20,7 @@ export default function SortBar() {
 
 
     return (
+        <>
         <div className="mt-8 flex flex-col items-center justify-between gap-3 rounded-xl border border-border bg-card p-3 shadow-sm sm:flex-row sm:px-4">
             <span className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <ArrowDownUp aria-hidden="true" className="size-4 text-primary" />
@@ -41,5 +42,11 @@ export default function SortBar() {
                 ))}
             </div>
         </div>
+        <details className="mt-3 rounded-lg border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
+            <summary className="cursor-pointer font-semibold text-foreground">About these results</summary>
+            <p className="mt-2">Google’s Best Match ranking combines relevance, distance and prominence. Ravenous’s Rating and Review Count options reorder only the returned restaurants; they do not request additional results.</p>
+            <a className="mt-2 inline-block underline underline-offset-4" href="https://support.google.com/business/answer/7091" target="_blank" rel="noopener noreferrer">Learn how Google ranks local results</a>
+        </details>
+        </>
     )
 }

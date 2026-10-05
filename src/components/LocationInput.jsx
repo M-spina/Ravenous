@@ -2,6 +2,7 @@ import {useEffect, useState, useRef} from 'react';
 import { useAutocomplete } from '../hooks/useAutocomplete';
 import { Input } from './ui/input';
 import { LoaderCircle, MapPin } from 'lucide-react';
+import GoogleMapsAttribution from './GoogleMapsAttribution';
 
 export default function LocationInput({ value, onChange }) {
 
@@ -120,7 +121,8 @@ export default function LocationInput({ value, onChange }) {
             />
 
             {showDropdown && suggestions.length > 0 && (
-                <ul id="location-suggestions" role="listbox" className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 max-h-64 list-none overflow-y-auto rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-xl">
+                <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl">
+                <ul id="location-suggestions" role="listbox" className="max-h-64 list-none overflow-y-auto p-1.5">
                     {suggestions.map((suggestion, index) => (
                         <li
                             key={suggestion.placeId}
@@ -138,6 +140,8 @@ export default function LocationInput({ value, onChange }) {
                         </li>
                     ))}
                 </ul>
+                <div className="border-t border-border"><GoogleMapsAttribution /></div>
+                </div>
             )}
 
             {showDropdown && isLoading && (
