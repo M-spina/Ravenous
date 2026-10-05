@@ -10,13 +10,7 @@
 
 Ravenous turns a cuisine or restaurant query and a location into a sortable set of nearby places. It was built as a portfolio project focused on predictable state management, resilient browser API interactions, accessible UI, and production-minded quality checks.
 
-There is no hosted deployment yet. The screenshots below use representative local preview data and show the current interface.
-
-## Screenshots
-
-![Ravenous search form with three restaurant results](./docs/screenshots/ravenous-search-results.jpg)
-
-![Ravenous restaurant card showing phone, Google Maps link, and opening hours](./docs/screenshots/ravenous-restaurant-details.jpg)
+There is no hosted deployment yet. The interface includes Google attribution, optional precise-location withdrawal, and draft standalone legal pages.
 
 ## Features
 

@@ -1,4 +1,4 @@
-import defaultImage from '../assets/placeholder.png';
+import defaultImage from '../assets/placeholder.svg';
 
 export const transformPlaceData = (place) => {
   // Helper function to format opening hours into a more user-friendly string
