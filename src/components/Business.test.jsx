@@ -118,6 +118,13 @@ describe('Business', () => {
     expect(screen.getByText('Provider two')).toBeInTheDocument()
   })
 
+  it('does not expose a non-web URL from restaurant metadata', async () => {
+    const user = userEvent.setup()
+    render(<Business business={{ ...business, website: 'javascript:alert(1)' }} />)
+    await user.click(screen.getByRole('button', { name: `Show details for ${business.name}` }))
+    expect(screen.queryByRole('link', { name: 'View on Google Maps' })).not.toBeInTheDocument()
+  })
+
   it('handles missing optional contact and price data', async () => {
     const user = userEvent.setup()
     const minimalBusiness = { ...business, phone: null, website: null, hours: null, priceLevel: null }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PhotoAttributions, PlaceAttributions } from './Attributions';
+import { safeExternalUrl } from '../utilities/safeExternalUrl';
 import StarRating from './StarRating';
 import PriceLevel from './PriceLevel';
 import { Badge } from './ui/badge';
@@ -10,6 +11,7 @@ import { Clock3, ExternalLink, MapPin, Phone, RotateCcw, RotateCw } from 'lucide
 export default function Business({ business }) {
 
   const [isFlipped, setIsFlipped] = useState(false);
+  const website = safeExternalUrl(business.website);
 
   const handleCardClick = () => {
     setIsFlipped((current) => !current);
@@ -124,8 +126,8 @@ export default function Business({ business }) {
               <div className="flex items-start gap-3 rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 p-3.5 backdrop-blur-sm">
                 <ExternalLink aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
                 <span className="min-w-0 text-sm leading-relaxed">
-                {business.website ? (
-                    <a href={business.website} target="_blank" rel="noopener noreferrer" onClick={preventFlip} className="font-semibold underline decoration-primary-foreground/50 underline-offset-4 hover:decoration-primary-foreground">
+                {website ? (
+                    <a href={website} target="_blank" rel="noopener noreferrer" onClick={preventFlip} className="font-semibold underline decoration-primary-foreground/50 underline-offset-4 hover:decoration-primary-foreground">
                     View on Google Maps
                   </a>
                 ) : (

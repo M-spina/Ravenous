@@ -224,6 +224,7 @@ describe('SearchBar', () => {
     await user.click(screen.getByRole('button', { name: 'Use my current location' }))
     await waitFor(() => expect(reverseGeocode).toHaveBeenCalledOnce())
     await user.click(screen.getByRole('button', { name: 'Stop using precise location' }))
+    expect(screen.getByRole('combobox', { name: 'Where?' })).toHaveFocus()
     await act(async () => resolveGeocode('London, UK'))
     expect(store.getState().search.location).toBe('Manual area')
     expect(store.getState().places.coords).toBeNull()
