@@ -16,6 +16,10 @@ The later [production verification](production-verification-2026-10-06.md) confi
 
 These checks do not establish exact visitor-log retention, accepted agreement versions, complete third-party storage behaviour or personal account MFA. The existing Firefox profile had a Netlify-namespaced owner-toolbar preference; keep this separate from public-visitor behaviour. A configured region for an unused feature is not evidence of all processing locations.
 
+## Additional provider evidence
+
+The [6 October provider evidence and ready-to-send enquiries](provider-evidence-2026-10-06.md) records the Free-plan Observability viewing window, Google request-log documentation, live UK DPF certification checks and exact support routes. No enquiries have been sent. The clean-profile test remains pending; existing-profile observations are not a clean inventory.
+
 ## Provider documents reviewed
 
 For the Netlify self-serve hosting account, distinguish the subscription agreement from the terms for visiting Netlify's own website:

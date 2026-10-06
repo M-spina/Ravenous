@@ -12,6 +12,8 @@ Coordinates stay in memory. Stop/manual entry invalidates pending position and g
 
 ## Google and host assessment
 
+See [provider evidence and prepared enquiries](provider-evidence-2026-10-06.md) for current sources, live certification checks and the clean-browser protocol. Google LLC and Netlify, Inc. showed active UK DPF Extension coverage for non-HR data in the official register on 6 October 2026; mapping that coverage to each actual flow remains part of the transfer assessment.
+
 The provider documents and confirmed account facts are recorded in [privacy-operations.md](privacy-operations.md). The current private `main@17392c5` deployment has enforcing headers and passed the tested flows. Exact visitor-log fields/retention, accepted account-specific agreements and applicable transfers remain pending. Dashboard visibility is not proof of deletion; obtain provider confirmation where public terms do not specify the facts.
 
 ## Storage/access assessment
