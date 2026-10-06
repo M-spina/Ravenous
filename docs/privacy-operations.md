@@ -10,18 +10,11 @@ Ravenous is a personal portfolio project built and operated by one developer. Th
 
 ## Confirmed Netlify observations
 
-The connected Netlify tools reported these facts on 6 October 2026:
+The earlier [account/deployment assessment](deployed-assessment-2026-10-06.md) established the Free plan, one Owner workspace member, disabled Forms/Web Analytics/Real User Monitoring, unconfigured Log Drains and no deployed functions. Netlify's “team” terminology does not imply multiple developers or a paid plan.
 
-- Free plan; one workspace member with the Owner role. Netlify's word “team” does not imply multiple developers or a paid plan.
-- A ready deployment at https://ravenousfind.netlify.app from `codex/launch-security`, commit `5418401`.
-- Team-login restrictions apply across all deploys. Independent unauthenticated requests to `/` and `/privacy.html` returned HTTP 401, corroborating access protection. Authenticated Firefox requests subsequently returned HTTP 200 on all three HTML pages, and manual search, autocomplete and credited photos worked in the limited browser pass.
-- Forms are disabled; this deploy contains no serverless or edge functions.
-- The deploy includes `index.html`, `privacy.html` and `terms.html`.
-- An HTTP request to the primary hostname returned a 301 redirect to HTTPS. HTTPS requests using the system TLS client passed normal certificate verification and returned `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` on the access-denied responses. Authenticated Firefox responses also supplied HSTS, but lacked the planned application security headers; verification of the newly configured revision remains pending.
-- The deploy summary says **no header rules processed**. Local Vite-preview headers do not configure Netlify. Apply Netlify header rules and verify authenticated application responses before claiming the security checks pass.
-- The tool's team MFA-enforcement field does not establish whether the owner's personal MFA is enabled; verify that separately.
+The later [production verification](production-verification-2026-10-06.md) confirms the private production deployment now serves merged `main@17392c5`, with one processed header rule and the enforcing CSP plus all four companion headers on authenticated application responses. Team-login protection applies to production and previews. HTTP redirects to HTTPS, and HSTS is present. Real Google geocoding with synthetic public coordinates, location withdrawal and pending-response cancellation passed. The real device-permission interaction and independent authenticated cross-origin framing check remain limited as documented.
 
-The subsequent authenticated browser pass inspected storage, network requests, optional Netlify features and Google's UK billing country, as recorded in the dated report. It did not establish a complete third-party storage inventory, exact visitor-log retention or accepted agreement versions. A configured region for an unused Netlify feature is not evidence of the location of all visitor-data processing. Successful precise-location/reverse-geocoding and withdrawal checks remain pending.
+These checks do not establish exact visitor-log retention, accepted agreement versions, complete third-party storage behaviour or personal account MFA. The existing Firefox profile had a Netlify-namespaced owner-toolbar preference; keep this separate from public-visitor behaviour. A configured region for an unused feature is not evidence of all processing locations.
 
 ## Provider documents reviewed
 
@@ -80,8 +73,8 @@ References: [ICO complaint handling](https://ico.org.uk/for-organisations/how-to
 - Obtain Netlify's actual visitor-log fields, purposes, retention/deletion and relevant transfer arrangements. Draft a support request; do not send it without the owner's instruction.
 - Complete the browser inventory in a clean profile, comparing third-party cookies allowed/blocked and testing optional geocoding, withdrawal and pending-request cancellation. Initial loading, autocomplete and search/photos were inspected in the limited authenticated Firefox pass. Local source inspection alone cannot establish third-party storage/access.
 - Netlify documents that pre-launch-toolbar hide/minimise preferences use local storage, and that the toolbar disappears when the project becomes public. Record test-only toolbar/login behaviour separately and repeat relevant checks on the final visitor configuration. Audits use Agent Runners and consume credits; their findings do not establish lawful bases, exact retention or completed compliance.
-- Complete the legitimate-interests assessment, including Google's initial page-load requests and whether loading can be deferred. Confirm optional-location consent and separate bases for correspondence and statutory complaints/rights handling.
-- Configure and verify the Netlify response headers, then repeat HTTPS/CSP and functional checks against the deployed revision.
+- Review and complete the [draft processing assessment](privacy-assessment-draft.md), including Google's initial page-load requests and whether loading can be deferred. Confirm optional-location consent and separate bases for correspondence and statutory complaints/rights handling.
+- Enforcing headers and the tested private production flows now pass for `17392c5`; repeat relevant checks after configuration or visibility changes, and complete the framing/device-permission limitations recorded in the production report.
 - Supply owner/contact details, put the adopted procedure into operation, and complete the ICO fee assessment with the actual owner facts.
 
 [Netlify pre-launch-toolbar documentation](https://docs.netlify.com/manage/projects/pre-launch-toolbar/), [ICO storage/access exceptions](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/).

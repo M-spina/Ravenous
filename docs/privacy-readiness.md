@@ -1,6 +1,6 @@
 # Privacy launch inputs and operational procedure
 
-Authenticated Firefox testing is now recorded in [the 6 October deployment assessment](deployed-assessment-2026-10-06.md). The limited storage pass is not a complete fresh-profile/third-party-cookie assessment. Exact provider log retention, legal decisions and final owner sign-off of the assessments remain pending. The owner approved the retention schedule and operating procedure on 6 October 2026.
+Current production security and functional observations are recorded in [the enforcing production report](production-verification-2026-10-06.md). The older [deployment assessment](deployed-assessment-2026-10-06.md) remains historical evidence. The owner approved the retention schedule and operating procedure on 6 October 2026. A [draft processing assessment](privacy-assessment-draft.md) now provides purpose/necessity/balancing reasoning for owner review; the completed lawful-basis, storage and transfer assessments are not yet approved.
 
 The public notice is a draft. Do not publish it as complete until every bracketed field is resolved. No owner, hosting entity, log retention or international-transfer safeguard has been invented.
 
@@ -12,7 +12,7 @@ Coordinates stay in memory. Stop/manual entry invalidates pending position and g
 
 ## Google and host assessment
 
-Confirm applicable Google terms, legal entity and roles. Netlify is now the host. On 6 October 2026, the connected Netlify tools confirmed the Free plan, one member, a ready deploy from codex/launch-security, login restrictions across all deploys, Forms disabled and no functions deployed. The subsequent authenticated Firefox pass checked application responses and limited storage/access behaviour: the earlier deployment lacked the planned security headers. A complete storage inventory, exact hosting-log retention and applicable Google account agreements remain pending. See privacy-operations.md for the adopted procedure and provider references. Record its applicable data terms, visitor/CDN/security log fields, processing locations, retention and settings. Public references: https://www.netlify.com/privacy/ and https://www.netlify.com/pdf/netlify-dpa.pdf. Confirm actual retention with Netlify where documentation does not specify it; dashboard visibility is not proof of deletion. Identify every relevant transfer and the applicable safeguard or adequacy basis; obtain a transfer assessment where required. Only then fill the notice with verified details.
+The provider documents and confirmed account facts are recorded in [privacy-operations.md](privacy-operations.md). The current private `main@17392c5` deployment has enforcing headers and passed the tested flows. Exact visitor-log fields/retention, accepted account-specific agreements and applicable transfers remain pending. Dashboard visibility is not proof of deletion; obtain provider confirmation where public terms do not specify the facts.
 
 ## Storage/access assessment
 
@@ -56,3 +56,17 @@ This file is a public checklist, not the completed assessment or a record of vis
 6. Enforce the verified CSP and repeat functional/header/storage checks on the final hostname before public release. Fill contact details, verify the privacy inbox, and complete other launch gates.
 
 The initial HTTPS checks support the storage assessment; final security checks follow the completed configuration. Neither these public instructions nor provider policy links establish that an assessment has passed.
+
+## Remaining placeholder actions
+
+| Public draft field | How to resolve it |
+| --- | --- |
+| Owner name/contact/privacy email (and Terms contact email) | Owner supplies the public identity and monitored address. A dedicated email/alias is optional; test delivery, spam checks, MFA and absence coverage. Assess the email provider before inserting it. |
+| Netlify visitor log fields/purposes and retention/deletion | Review the project’s Observability, Web Analytics, RUM and Log Drains settings; use the prepared support questions in privacy-operations.md for internal CDN/security logs not specified there. Obtain a written answer; do not invent a deletion period. |
+| Owner review of lawful bases | Review privacy-assessment-draft.md, resolve necessity/balancing gaps (especially initial SDK loading), and record the dated decision privately. Procedure approval alone does not approve this assessment. |
+| Account-specific Google terms | Record the applicable Maps subscription/account agreement, accepted version and any overrides from account onboarding records or Google support. Billing settings identify billing arrangements but do not prove all accepted Maps terms. Compare with the published Maps/controller terms. |
+| Public-visitor storage/access | Complete the clean-profile staged inventory and purpose/exception-or-consent decision. Private SSO cookies and toolbar preferences are separate; repeat relevant checks when visibility/features change. |
+| Account-specific transfers/safeguards | Map actual recipients, roles and destinations; confirm current UK adequacy/certification coverage or contractual provisions, onward recipients and any required risk assessment. Ask providers for missing facts. Include the chosen email provider. |
+| Monitored contact and inbox coverage | Put the approved twice-weekly checking, private case record and monthly deletion procedure into operation; test a message and record coverage arrangements. |
+
+No messages have been sent to providers and no account agreements accepted on the owner's behalf. Header configuration and application flows are now verified for the named commit; unresolved privacy fields still prevent public release.

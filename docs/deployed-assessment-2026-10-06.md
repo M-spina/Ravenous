@@ -1,5 +1,7 @@
 # Private Netlify deployment assessment — 6 October 2026
 
+Later production security checks are recorded in [the enforcing production report](production-verification-2026-10-06.md). The missing-header findings below describe the older `5418401` deployment, not current production. Storage findings remain limited and historical.
+
 Status: **partial assessment; public launch remains blocked**. These are sanitised observations from authenticated Firefox UI and provider documents, not a legal sign-off. No credentials, personal coordinates, raw browser exports or fetched Google content are retained here.
 
 ## Deployment and method
