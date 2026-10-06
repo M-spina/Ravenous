@@ -35,6 +35,7 @@ export default function LocationInput({ value, onChange, descriptionId, inputRef
         const newValue = e.target.value;
         onChange(newValue);
         setActiveIndex(-1);
+        clearSuggestions();
         // Clear any existing debounce timeout
         if (debounceTimeoutRef.current) {
             clearTimeout(debounceTimeoutRef.current);
@@ -42,7 +43,6 @@ export default function LocationInput({ value, onChange, descriptionId, inputRef
         }
 
         if(newValue.length < 2) {
-            clearSuggestions();
             setShowDropdown(false);
             return;
         }

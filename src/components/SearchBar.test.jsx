@@ -9,6 +9,8 @@ import { renderWithStore } from '../test/renderWithStore'
 import { useGeolocation } from '../hooks/useGeolocation'
 import placesReducer from '../store/placesSlice'
 import searchReducer from '../store/searchSlice'
+import { loadGoogleMapsScript } from '../utilities/loadGoogleMaps'
+import { searchPlaces } from '../utilities/placesService'
 import { reverseGeocode } from '../utilities/geocodingService'
 
 vi.mock('../hooks/useAutocomplete', () => ({
@@ -29,6 +31,9 @@ vi.mock('../utilities/geocodingService', () => ({
   reverseGeocode: vi.fn(),
 }))
 
+vi.mock('../utilities/loadGoogleMaps', () => ({ loadGoogleMapsScript: vi.fn() }))
+vi.mock('../utilities/placesService', () => ({ searchPlaces: vi.fn() }))
+
 const getUserLocation = vi.fn()
 const reverseGeocodeErrorMessage = 'We found your position, but couldn’t identify your location. Enter it manually or try again.'
 
@@ -37,7 +42,7 @@ const state = ({ mapsLoaded, isLoading = false, term = 'pizza', location = 'Lond
   places: { coords: null, mapsLoaded, isLoading },
 })
 
-const realState = ({ location = '', coords = null } = {}) => ({
+const realState = ({ location = '', coords = null, mapsLoaded = true } = {}) => ({
   search: { term: 'pizza', location },
   places: {
     businesses: [],
@@ -45,7 +50,7 @@ const realState = ({ location = '', coords = null } = {}) => ({
     error: null,
     sortBy: 'bestMatch',
     coords,
-    mapsLoaded: true,
+    mapsLoaded,
     mapsError: null,
   },
 })
@@ -79,15 +84,18 @@ describe('SearchBar', () => {
       geoError: null,
     })
     reverseGeocode.mockReset()
+    loadGoogleMapsScript.mockReset().mockResolvedValue({})
+    searchPlaces.mockReset().mockResolvedValue([])
     vi.spyOn(console, 'log').mockImplementation(() => {})
     vi.spyOn(console, 'error').mockImplementation(() => {})
   })
 
-  it('keeps search disabled until Google Maps is loaded', () => {
+  it('allows the first search and location choice before Google is loaded', () => {
     renderWithStore(<SearchBar />, state({ mapsLoaded: false }))
 
-    expect(screen.getByRole('button', { name: 'Loading Maps...' })).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Use my current location' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Search restaurants' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: 'Use my current location' })).toBeEnabled()
+    expect(loadGoogleMapsScript).not.toHaveBeenCalled()
   })
 
   it('enables a complete search and exposes the searching state', () => {
@@ -147,7 +155,7 @@ describe('SearchBar', () => {
     await user.click(screen.getByRole('button', { name: 'Use my current location' }))
 
     expect(await screen.findByRole('alert')).toHaveTextContent(reverseGeocodeErrorMessage)
-    expect(reverseGeocode).toHaveBeenCalledWith(detectedCoords)
+    expect(reverseGeocode).toHaveBeenCalledWith(detectedCoords, expect.any(Function))
     expect(store.getState().search.location).toBe('London, UK')
     expect(store.getState().places.coords).toEqual(existingCoords)
   })
@@ -243,6 +251,56 @@ describe('SearchBar', () => {
     await act(async () => rejectGeocode(new Error('Late failure')))
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
     expect(store.getState().search.location).toBe('Paris')
+  })
+
+  it('waits for the first SDK load and submits without requiring another click', async () => {
+    let resolveLoad
+    loadGoogleMapsScript.mockReturnValue(new Promise((resolve) => { resolveLoad = resolve }))
+    const user = userEvent.setup()
+    const { store } = renderWithRealStore(realState({ location: 'London', mapsLoaded: false }))
+    await user.click(screen.getByRole('button', { name: 'Search restaurants' }))
+    expect(screen.getByRole('button', { name: 'Loading Maps...' })).toBeDisabled()
+    expect(searchPlaces).not.toHaveBeenCalled()
+    await act(async () => resolveLoad({}))
+    await waitFor(() => expect(searchPlaces).toHaveBeenCalledWith('pizza', 'London', null))
+    expect(store.getState().places.hasSearched).toBe(true)
+    await user.click(screen.getByRole('button', { name: 'Search restaurants' }))
+    await waitFor(() => expect(searchPlaces).toHaveBeenCalledTimes(2))
+    expect(loadGoogleMapsScript).toHaveBeenCalledOnce()
+  })
+
+  it('does not submit coordinates withdrawn during the first SDK load', async () => {
+    let resolveLoad
+    loadGoogleMapsScript.mockReturnValue(new Promise((resolve) => { resolveLoad = resolve }))
+    const user = userEvent.setup()
+    const { store } = renderWithRealStore(realState({ location: 'London', mapsLoaded: false, coords: { lat: 51.5, lng: -0.1 } }))
+    await user.click(screen.getByRole('button', { name: 'Search restaurants' }))
+    await user.click(screen.getByRole('button', { name: 'Stop using precise location' }))
+    await act(async () => resolveLoad({}))
+    expect(searchPlaces).not.toHaveBeenCalled()
+    expect(store.getState().places.coords).toBeNull()
+    expect(screen.getByRole('button', { name: 'Search restaurants' })).toBeEnabled()
+  })
+
+  it('can retry a failed first SDK load', async () => {
+    loadGoogleMapsScript.mockRejectedValueOnce(new Error('Maps unavailable')).mockResolvedValueOnce({})
+    const user = userEvent.setup()
+    const { store } = renderWithRealStore(realState({ location: 'London', mapsLoaded: false }))
+    await user.click(screen.getByRole('button', { name: 'Search restaurants' }))
+    await waitFor(() => expect(store.getState().places.mapsError).toBe('Maps unavailable'))
+    expect(searchPlaces).not.toHaveBeenCalled()
+    await user.click(screen.getByRole('button', { name: 'Search restaurants' }))
+    await waitFor(() => expect(searchPlaces).toHaveBeenCalledOnce())
+    expect(store.getState().places.mapsError).toBeNull()
+  })
+
+  it('keeps location denial local before Google loading', async () => {
+    const user = userEvent.setup()
+    renderWithRealStore(realState({ mapsLoaded: false }))
+    await user.click(screen.getByRole('button', { name: 'Use my current location' }))
+    expect(getUserLocation).toHaveBeenCalledOnce()
+    expect(reverseGeocode).not.toHaveBeenCalled()
+    expect(loadGoogleMapsScript).not.toHaveBeenCalled()
   })
 
 })

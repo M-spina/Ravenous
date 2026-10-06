@@ -1,11 +1,12 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getPlacesLibrary } from '../utilities/loadGoogleMaps'
+import { getPlacesLibrary, loadGoogleMapsScript } from '../utilities/loadGoogleMaps'
 import { useAutocomplete } from './useAutocomplete'
 
 vi.mock('../utilities/loadGoogleMaps', () => ({
   getPlacesLibrary: vi.fn(),
+  loadGoogleMapsScript: vi.fn(),
 }))
 
 const fetchAutocompleteSuggestions = vi.fn()
@@ -38,6 +39,8 @@ describe('useAutocomplete', () => {
       AutocompleteSessionToken,
       AutocompleteSuggestion: { fetchAutocompleteSuggestions },
     })
+    loadGoogleMapsScript.mockReset()
+    loadGoogleMapsScript.mockImplementation(async () => getPlacesLibrary())
     vi.spyOn(console, 'log').mockImplementation(() => {})
     vi.spyOn(console, 'error').mockImplementation(() => {})
   })
@@ -52,8 +55,9 @@ describe('useAutocomplete', () => {
 
     let olderFetch
     let newerFetch
-    act(() => {
+    await act(async () => {
       olderFetch = result.current.fetchSuggestions('London')
+      await Promise.resolve()
     })
     act(() => {
       newerFetch = result.current.fetchSuggestions('London Bridge')
@@ -108,8 +112,9 @@ describe('useAutocomplete', () => {
     const { result } = renderHook(() => useAutocomplete())
 
     let pendingFetch
-    act(() => {
+    await act(async () => {
       pendingFetch = result.current.fetchSuggestions('London')
+      await Promise.resolve()
     })
     act(() => {
       result.current.resetSession()
@@ -126,4 +131,19 @@ describe('useAutocomplete', () => {
     expect(result.current.suggestions).toEqual([])
     expect(result.current.isLoading).toBe(false)
   })
+  it('does not send a cancelled location input after the first SDK load', async () => {
+    const loading = deferred()
+    loadGoogleMapsScript.mockReturnValue(loading.promise)
+    const { result } = renderHook(() => useAutocomplete())
+    let fetch
+    act(() => { fetch = result.current.fetchSuggestions('London') })
+    act(() => { result.current.clearSuggestions() })
+    await act(async () => {
+      loading.resolve(getPlacesLibrary())
+      await fetch
+    })
+    expect(fetchAutocompleteSuggestions).not.toHaveBeenCalled()
+    expect(result.current.isLoading).toBe(false)
+  })
+
 })

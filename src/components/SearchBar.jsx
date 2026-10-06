@@ -4,7 +4,7 @@ import LocationInput from './LocationInput';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { reverseGeocode } from '../utilities/geocodingService';
 import { setSearchTerm, setSearchLocation } from '../store/searchSlice';
-import { setCoords, clearCoords, fetchPlaces } from '../store/placesSlice';
+import { setCoords, clearCoords, fetchPlaces, initializeGoogleMaps } from '../store/placesSlice';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { LoaderCircle, LocateFixed, Search } from 'lucide-react';
@@ -12,31 +12,37 @@ import { LoaderCircle, LocateFixed, Search } from 'lucide-react';
 export default function SearchBar() {
   const dispatch = useDispatch();
   const locationRequestRef = useRef(0);
+  const searchRequestRef = useRef(0);
+  const [isPreparingSearch, setIsPreparingSearch] = useState(false);
   const locationInputRef = useRef(null);
   const [isUsingLocation, setIsUsingLocation] = useState(false);
-  useEffect(() => () => { locationRequestRef.current += 1; }, []);
+  useEffect(() => () => { locationRequestRef.current += 1; searchRequestRef.current += 1; }, []);
   const [reverseGeocodeError, setReverseGeocodeError] = useState(null);
 
   const { term, location } = useSelector((state) => state.search);
   const { coords, isLoading, mapsLoaded } = useSelector((state) => state.places);
   const { getUserLocation, cancelLocation, isLocating, geoError } = useGeolocation();
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-
-    if(!mapsLoaded) {
-      alert('Google Maps is still loading. Please wait a moment and try again.');
-      return;
-    }
-
-    if (term && location) {
-      // Pass the current coordinates from the places slice to the fetchPlaces thunk for location biasing in search results
-      dispatch(fetchPlaces({ term, location, coords }));
+    if (!term || !location || isLoading || isPreparingSearch) return;
+    const requestId = ++searchRequestRef.current;
+    setIsPreparingSearch(true);
+    try {
+      if (!mapsLoaded) await dispatch(initializeGoogleMaps()).unwrap();
+      // Do not submit stale text or withdrawn coordinates after the first SDK load.
+      if (requestId !== searchRequestRef.current) return;
+      await dispatch(fetchPlaces({ term, location, coords }));
+    } catch {
+      // The initialization thunk exposes its inline error; the next submit can retry.
+    } finally {
+      setIsPreparingSearch(false);
     }
   };
 
   const stopUsingPreciseLocation = () => {
     locationRequestRef.current += 1;
+    searchRequestRef.current += 1;
     cancelLocation?.();
     setIsUsingLocation(false);
     setReverseGeocodeError(null);
@@ -51,7 +57,7 @@ export default function SearchBar() {
       const detectedCoords = await getUserLocation();
       // Manual editing or withdrawal must prevent a later coordinate disclosure.
       if (!detectedCoords || requestId !== locationRequestRef.current) return;
-      const locationName = await reverseGeocode(detectedCoords);
+      const locationName = await reverseGeocode(detectedCoords, () => requestId === locationRequestRef.current);
       if (requestId !== locationRequestRef.current) return;
       dispatch(setSearchLocation(locationName));
       dispatch(setCoords(detectedCoords));
@@ -83,7 +89,7 @@ export default function SearchBar() {
                 type="text"
                 placeholder="Restaurants, cafes, cuisines..."
                 value={term}
-                onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+                onChange={(e) => { searchRequestRef.current += 1; dispatch(setSearchTerm(e.target.value)); }}
                 className="h-12 pl-10"
                 required
               />
@@ -100,7 +106,7 @@ export default function SearchBar() {
                 variant="secondary"
                 size="icon"
                 onClick={handleUseMyLocation}
-                disabled={isLocating || isUsingLocation || !mapsLoaded || isLoading}
+                disabled={isLocating || isUsingLocation || isLoading || isPreparingSearch}
                 aria-label="Use my current location"
                 aria-describedby="location-sharing-notice"
                 title="Use my current location"
@@ -119,10 +125,10 @@ export default function SearchBar() {
             )}
           </div>
         </div>
-        <Button type="submit" size="lg" className="h-12 w-full text-base" disabled={!mapsLoaded || isLoading || !term || !location}>
-          {isLoading && <LoaderCircle aria-hidden="true" className="animate-spin motion-reduce:animate-none" />}
-          {!isLoading && <Search aria-hidden="true" />}
-          {!mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search restaurants'}
+        <Button type="submit" size="lg" className="h-12 w-full text-base" disabled={isPreparingSearch || isLoading || !term || !location}>
+          {(isPreparingSearch || isLoading) && <LoaderCircle aria-hidden="true" className="animate-spin motion-reduce:animate-none" />}
+          {!isPreparingSearch && !isLoading && <Search aria-hidden="true" />}
+          {isPreparingSearch && !mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search restaurants'}
         </Button>
         {(reverseGeocodeError || geoError) && (
           <p className="text-center text-sm font-medium text-destructive" role="alert">

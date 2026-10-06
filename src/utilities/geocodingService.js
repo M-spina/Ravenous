@@ -1,8 +1,10 @@
 import { loadGeocodingLibrary } from './loadGoogleMaps.js';
 
-export const reverseGeocode = async (coords) => {
+export const reverseGeocode = async (coords, isCurrent = () => true) => {
     try {
         const { Geocoder } = await loadGeocodingLibrary();
+        // Withdrawal/manual editing during SDK loading must prevent disclosure.
+        if (!isCurrent()) return null;
         const geocoder = new Geocoder();
         const response = await geocoder.geocode({ 
             location: { lat: coords.lat, lng: coords.lng }

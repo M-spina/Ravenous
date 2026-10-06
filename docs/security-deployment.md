@@ -1,5 +1,7 @@
 # Static-host security configuration and launch verification
 
+Current status: [private production verification on 6 October](production-verification-2026-10-06.md) passed the named enforcing deployment's headers and tested application flows. Earlier local/staging statements below are historical; the report records remaining test limitations and privacy launch gates.
+
 The private Netlify deployment `main@f75331c` passed the authenticated header and sampled Report-Only compatibility checks on 6 October. See [the security verification report](security-verification-2026-10-06.md) for the exact response values, successful search/photo/geocoding checks and limitations. It supersedes the missing-header findings for the earlier deployment in [the deployment assessment](deployed-assessment-2026-10-06.md).
 
 This change promotes the same policy to enforcement in `netlify.toml`. **The enforcing HTTPS deployment has not yet been tested.** Merge and deploy privately, then repeat the checks below. The four companion headers, policy sources, build settings and existing private access are unchanged. Repository configuration does not enable or remove Netlify's account-level access restrictions.
@@ -72,7 +74,7 @@ Record the chosen host, deployed revision, header values, browser/version, opera
 - The production bundle on the existing permitted `http://localhost:5173` origin loaded the SDK, returned keyboard-selectable autocomplete suggestions, searched, sorted and loaded all 20 displayed Google photos with author credits. No CSP violations were recorded for these operations under either policy. Observed script origin: `maps.googleapis.com`; photo URLs: `places.googleapis.com` (redirected photo delivery also needs the documented Google image origins).
 - A harmless inline-script probe was blocked under enforcement and produced a `script-src-elem` violation; the probe's code did not execute. A separate-origin iframe containing the privacy page was blocked by the browser.
 - Original-artwork/synthetic-data component fixtures at 390px and 320px showed wrapping author/provider credits and matching viewport/content widths. This checks narrow layouts; it is not a physical-device or screen-reader audit. Native flip controls and autocomplete keyboard behaviour have functional tests; pending location cancellation, denial and failure are covered by unit tests. Loading/results now have polite status announcements, withdrawal returns focus to manual entry, and spinners/skeletons honour reduced motion.
-- A public-coordinate reverse-geocoding request did not finish within the fixture's 15-second observation window in either Report-Only or enforcement mode, with no CSP violation recorded. The later 6 October private HTTPS pass successfully completed direct SDK geocoding with public test coordinates. The complete location-button permission/withdrawal flow still needs an enforcing deployment check. No additional policy relaxation was made on the earlier timeout evidence.
+- A public-coordinate reverse-geocoding request did not finish within the fixture's 15-second observation window in either Report-Only or enforcement mode, with no CSP violation recorded. The later 6 October private HTTPS pass successfully completed direct SDK geocoding with public test coordinates. The later enforcing production pass verified withdrawal/cancellation using simulated public coordinates and real Google geocoding; the native device-permission interaction remains to be checked. No additional policy relaxation was made on the earlier timeout evidence.
 - Temporary browser test fixtures are excluded from the repository and removed by the final production build. No personal coordinates or fetched Google photos/results were saved as evidence.
 
 These local checks do not establish HTTPS-host behaviour, Google/host storage/access, account MFA, HSTS or a completed privacy assessment. Those launch checks remain pending.
@@ -89,7 +91,7 @@ A clean installation on Node 24.21.0, lint, all 72 tests, the production multipa
 
 ## Enforcement PR local validation — 6 October 2026
 
-A fresh Node 24.21.0 installation, lint, all 72 tests, production build and dependency audit passed with zero vulnerabilities. Parsed TOML comparison confirmed that the only effective configuration change is the CSP header name; its policy text, four companion headers and build configuration are identical to `main@f75331c`. Actual local production-preview responses passed the enforced-header checker for all three HTML pages. The deployed enforcing revision still needs the authenticated browser checks below.
+A fresh Node 24.21.0 installation, lint, all 72 tests, production build and dependency audit passed with zero vulnerabilities. Parsed TOML comparison confirmed that the only effective configuration change is the CSP header name; its policy text, four companion headers and build configuration are identical to `main@f75331c`. Actual local production-preview responses passed the enforced-header checker for all three HTML pages. The later production report records the authenticated enforcing checks and their limits.
 
 ## Enforcing deployment review and recovery
 

@@ -70,4 +70,16 @@ describe('reverseGeocode', () => {
 
     await expect(reverseGeocode(coordinates)).rejects.toThrow(failureMessage)
   })
+  it('does not disclose coordinates withdrawn while the SDK is loading', async () => {
+    let resolveLoad
+    loadGeocodingLibrary.mockReturnValue(new Promise((resolve) => { resolveLoad = resolve }))
+    let current = true
+    const lookup = reverseGeocode(coordinates, () => current)
+    current = false
+    resolveLoad({ Geocoder })
+    await expect(lookup).resolves.toBeNull()
+    expect(Geocoder).not.toHaveBeenCalled()
+    expect(geocode).not.toHaveBeenCalled()
+  })
+
 })
