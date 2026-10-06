@@ -4,7 +4,7 @@ import { Input } from './ui/input';
 import { LoaderCircle, MapPin } from 'lucide-react';
 import GoogleMapsAttribution from './GoogleMapsAttribution';
 
-export default function LocationInput({ value, onChange }) {
+export default function LocationInput({ value, onChange, descriptionId }) {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [activeIndex, setActiveIndex] = useState(-1);
@@ -115,6 +115,7 @@ export default function LocationInput({ value, onChange }) {
                 autoComplete='off'
                 role="combobox"
                 aria-autocomplete="list"
+                aria-describedby={descriptionId}
                 aria-expanded={showDropdown}
                 aria-controls="location-suggestions"
                 aria-activedescendant={activeIndex >= 0 ? `location-suggestion-${activeIndex}` : undefined}

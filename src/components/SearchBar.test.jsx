@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -187,4 +187,61 @@ describe('SearchBar', () => {
     })
     expect(screen.queryByText(reverseGeocodeErrorMessage)).not.toBeInTheDocument()
   })
+  it('explains Google sharing through accessible descriptions on both location controls', () => {
+    renderWithRealStore(realState())
+    expect(screen.getByRole('combobox', { name: 'Where?' })).toHaveAccessibleDescription(/Typed locations are sent to Google/)
+    expect(screen.getByRole('button', { name: 'Use my current location' })).toHaveAccessibleDescription(/precise coordinates with Google/)
+  })
+
+  it('withdraws stored coordinates while keeping the readable location', async () => {
+    const user = userEvent.setup()
+    const { store } = renderWithRealStore(realState({ location: 'London, UK', coords: { lat: 51.5, lng: -0.1 } }))
+    await user.click(screen.getByRole('button', { name: 'Stop using precise location' }))
+    expect(store.getState().places.coords).toBeNull()
+    expect(store.getState().search.location).toBe('London, UK')
+    expect(reverseGeocode).not.toHaveBeenCalled()
+  })
+
+  it('does not send a late geolocation response to Google after manual editing', async () => {
+    const user = userEvent.setup()
+    let resolvePosition
+    getUserLocation.mockReturnValue(new Promise((resolve) => { resolvePosition = resolve }))
+    const { store } = renderWithRealStore(realState())
+    await user.click(screen.getByRole('button', { name: 'Use my current location' }))
+    await user.type(screen.getByRole('combobox', { name: 'Where?' }), 'Paris')
+    await act(async () => resolvePosition({ lat: 51.5, lng: -0.1 }))
+    expect(reverseGeocode).not.toHaveBeenCalled()
+    expect(store.getState().search.location).toBe('Paris')
+    expect(store.getState().places.coords).toBeNull()
+  })
+
+  it('ignores a late geocoding response after withdrawal', async () => {
+    const user = userEvent.setup()
+    let resolveGeocode
+    getUserLocation.mockResolvedValue({ lat: 51.5, lng: -0.1 })
+    reverseGeocode.mockReturnValue(new Promise((resolve) => { resolveGeocode = resolve }))
+    const { store } = renderWithRealStore(realState({ location: 'Manual area' }))
+    await user.click(screen.getByRole('button', { name: 'Use my current location' }))
+    await waitFor(() => expect(reverseGeocode).toHaveBeenCalledOnce())
+    await user.click(screen.getByRole('button', { name: 'Stop using precise location' }))
+    await act(async () => resolveGeocode('London, UK'))
+    expect(store.getState().search.location).toBe('Manual area')
+    expect(store.getState().places.coords).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Stop using precise location' })).not.toBeInTheDocument()
+  })
+
+  it('ignores a late geocoding error after manual recovery', async () => {
+    const user = userEvent.setup()
+    let rejectGeocode
+    getUserLocation.mockResolvedValue({ lat: 51.5, lng: -0.1 })
+    reverseGeocode.mockReturnValue(new Promise((_, reject) => { rejectGeocode = reject }))
+    const { store } = renderWithRealStore(realState())
+    await user.click(screen.getByRole('button', { name: 'Use my current location' }))
+    await waitFor(() => expect(reverseGeocode).toHaveBeenCalledOnce())
+    await user.type(screen.getByRole('combobox', { name: 'Where?' }), 'Paris')
+    await act(async () => rejectGeocode(new Error('Late failure')))
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    expect(store.getState().search.location).toBe('Paris')
+  })
+
 })

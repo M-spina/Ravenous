@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import defaultImage from '../assets/placeholder.png'
+import defaultImage from '../assets/placeholder.svg'
 import { transformPlaceData, transformPlacesResponse } from './API_Utilities.js'
 
 describe('Places response transformation', () => {
