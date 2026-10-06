@@ -1,8 +1,17 @@
-import { screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { configureStore } from '@reduxjs/toolkit'
+import { Provider } from 'react-redux'
+import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 
 import App from './App'
 import { renderWithStore } from './test/renderWithStore'
+
+import placesReducer from './store/placesSlice'
+import searchReducer from './store/searchSlice'
+import { loadGoogleMapsScript } from './utilities/loadGoogleMaps'
+
+vi.mock('./utilities/loadGoogleMaps', () => ({ loadGoogleMapsScript: vi.fn(), getPlacesLibrary: vi.fn() }))
 
 const business = {
   id: 'restaurant-1',
@@ -67,4 +76,14 @@ describe('App UI states', () => {
     expect(screen.getByRole('heading', { name: business.name })).toBeInTheDocument()
     expect(screen.queryByRole('heading', { name: 'No restaurants found' })).not.toBeInTheDocument()
   })
+  it('makes no Google load on opening, focusing fields or typing only a cuisine', async () => {
+    loadGoogleMapsScript.mockClear()
+    const store = configureStore({ reducer: { places: placesReducer, search: searchReducer } })
+    render(<Provider store={store}><App /></Provider>)
+    const user = userEvent.setup()
+    await user.click(screen.getByRole('combobox', { name: 'Where?' }))
+    await user.type(screen.getByRole('textbox', { name: 'What are you craving?' }), 'pizza')
+    expect(loadGoogleMapsScript).not.toHaveBeenCalled()
+  })
+
 })

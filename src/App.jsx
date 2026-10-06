@@ -1,27 +1,18 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import SearchBar from './components/SearchBar'
 import SiteFooter from './components/SiteFooter'
 import BusinessList from './components/BusinessList'
 import SortBar from './components/SortBar'
 import BusinessListSkeleton from './components/Skeletons/BusinessListSkeleton'
-import { selectSortedBusinesses, initializeGoogleMaps } from './store/placesSlice'
+import { selectSortedBusinesses } from './store/placesSlice'
 import { Alert, AlertDescription, AlertTitle } from './components/ui/alert'
 import { SearchX, TriangleAlert, UtensilsCrossed } from 'lucide-react'
 
 function App() {
 
-  const dispatch = useDispatch();
   // Get state from the Redux store using selectors
   const businesses = useSelector(selectSortedBusinesses);
   const { isLoading, hasSearched, error, mapsError } = useSelector((state) => state.places);
-
-  
-  // Initialize Google Maps when the app mounts so it's ready to use for location-based search and displaying maps in business details
-  useEffect(() => {
-    dispatch(initializeGoogleMaps());
-  }, [dispatch]);
-
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">

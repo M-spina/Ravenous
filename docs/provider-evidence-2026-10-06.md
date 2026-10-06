@@ -1,6 +1,20 @@
 # Provider evidence and enquiries — 6 October 2026
 
-Status: public-document research and limited authenticated account inspection completed. The owner supplied a Netlify support reply; the assistant has sent no messages. A Netlify follow-up and Google enquiry are prepared. Google submission status has not been confirmed. The staged clean-profile technical comparison is complete; final public-visitor configuration and owner assessment approval remain pending. Keep PR #21 draft and Netlify private. This document contains no credentials, raw browser exports or visitor records.
+Status: published-document research, limited authenticated settings inspection and the clean-profile technical comparison are complete. The owner supplied a Netlify support reply directing to the Trust Center and confirmed inbox verification. Draft #21 now uses this evidence proportionately; a personalised provider reply, SOC 2 download or custom agreement is not a general prerequisite. The owner selected deferred Google loading on 6 October; earlier tests recorded preload behaviour and remain historical. Final review and visitor-configuration checks remain separate. No provider messages were sent or agreements accepted by the assistant. This document contains no credentials, raw exports or visitor records.
+
+## Narrow follow-up for a consequential information gap
+
+Netlify's published documents do not specify this site's internal log TTL. The notice says so rather than inventing one; the Free-plan 24-hour view is not used as deletion evidence. A short reply in the existing support thread would improve the retention explanation:
+
+> Thanks. For my Free static site ravenousfind.netlify.app (Forms, Analytics/RUM and Log Drains off; no Functions), what retention periods **or criteria** apply to visitor/CDN/security logs, including backup/security exceptions, and what minimisation or deletion controls can I use? Please link the relevant hosting-policy section; the 24-hour Observability view does not establish deletion. No SOC 2 report or general vendor questionnaire is needed.
+
+This is prepared, not sent. A lack of a personalised reply is not itself a launch veto. Escalate an actual excessive-retention concern, inadequate safeguard or information needed for a live rights request.
+
+For Google, the published Maps/controller terms and transfer information cover the ordinary standard-service arrangement. Do not require an account-specific letter without evidence of an override. If SDK/device-access evidence indicates a purpose that could change the consent decision, use the privacy form for this focused question (well under 1,000 characters):
+
+> For a UK portfolio app using Maps JavaScript, Places autocomplete/text search/photos and optional reverse geocoding, does the SDK use cookies, browser storage or other device access for purposes beyond supplying the requested features or necessary security? Clean Firefox testing found no app storage or cookies on captured Google requests. Please identify any such technology, purpose and available controls, especially non-cookie telemetry, so I can assess whether it must wait for consent.
+
+No such non-exempt activity was identified in the bounded tests. The question is conditional, not a demand for Google to approve Ravenous. Earlier broad enquiries below are retained as historical prepared text and are superseded by this narrower approach; owner Google submission status remains unconfirmed.
 
 ## What is established
 
@@ -9,7 +23,7 @@ Status: public-document research and limited authenticated account inspection co
 | [Netlify Observability documentation](https://docs.netlify.com/manage/monitoring/observability/overview/) | Free-plan dashboard history is available for the past 24 hours. | This is a viewing window, not a confirmed internal log-deletion deadline. |
 | [Netlify Privacy Statement](https://www.netlify.com/privacy/), updated 10 April 2026 | Retention follows purposes/legal needs; specific retention questions can be directed to privacy@netlify.com. | Its descriptions of Netlify's own website/account activity do not establish every Ravenous visitor-log field. |
 | [Netlify DPA](https://www.netlify.com/pdf/netlify-dpa.pdf), updated 9 June 2026 | Provides on-behalf processing terms and conditional UK transfer provisions. | Identify the role and mechanism for each relevant processing activity; exact visitor-log TTL is not specified. |
-| [Netlify Trust Center](https://www.netlify.com/trust-center/) and subprocessors list, read in Firefox | The general list includes US infrastructure and logging providers, including AWS, Axiom, Humio and Datadog. | A list entry does not prove that provider processes this static site. Ask which apply; disabled Forms/Analytics do not disable all infrastructure logs. |
+| [Netlify Trust Center](https://www.netlify.com/trust-center/) and subprocessors list, read in Firefox | The general list includes US infrastructure and logging providers, including AWS, Axiom, Humio and Datadog. | A list entry does not prove that provider processes this static site. Do not infer every listed provider applies; disabled Forms/Analytics do not disable all infrastructure logs. |
 | [Google Maps security/compliance documentation](https://developers.google.com/maps/security/compliance/security-compliance) | Maps logs requests and status; typical fields include service identifiers, IP, request parameters, time and browser headers. Retention varies with business need. | Clearing Ravenous's state does not delete these records. Exact service-specific retention remains unspecified. |
 | Google Maps Platform Support, authenticated Firefox inspection | The selected project has Standard Support and offers Create a case; no existing cases were displayed. | No account-specific agreement or exception was obtained there. No case was submitted. |
 | [Official DPF participant register](https://www.dataprivacyframework.gov/list), searched in Firefox | Google LLC and Netlify, Inc. each showed Active for the UK Extension and Non-HR Data on 6 October 2026. | Certification alone does not establish scope for every transfer or onward recipient. Recheck when adopting the assessment. Google's older certification deep link opened the registry homepage; current List searches were used instead. |
@@ -22,7 +36,7 @@ The link redirected to the [public Trust Center](https://www.netlify.com/trust-c
 
 The [published DPA dated 9 June 2026](https://www.netlify.com/pdf/netlify-dpa.pdf) was re-read. It forms part of the applicable subscription agreement unless superseded. Section 2.1 covers on-behalf processing; Exhibit I includes hosted-site visitors and IP addresses among possible data categories. Section 12 describes deletion at service termination according to service capabilities/policies; Exhibit I's processing duration is the agreement term. Those clauses do not specify a rolling visitor/security-log deletion deadline. The general subprocessor list describes possible infrastructure/logging providers, not the confirmed set for Ravenous.
 
-### Focused follow-up — prepared, not sent
+### Earlier broad follow-up — historical prepared text, superseded above
 
 Reply in the existing support thread:
 
@@ -44,9 +58,9 @@ Malcolm Spina
 
 ## Confirming applicable terms and transfers
 
-A normal self-service account may use the published standard agreement; a separately negotiated contract is not automatically needed. Check onboarding/acceptance records, any reseller or special agreement, billing country and service use. Obtain support confirmation if those records do not settle applicability. Do not accept new terms merely to obtain evidence.
+A normal self-service account may use the published standard agreement; a separately negotiated contract is not automatically needed. Check onboarding/acceptance records, any reseller or special agreement, billing country and service use. Obtain support confirmation if an actual exception or conflicting record leaves a consequential applicability question; absence of a bespoke document alone is not such a conflict. Do not accept new terms merely to obtain evidence.
 
-For the inspected UK billing profile, the [published entity table](https://cloud.google.com/terms/google-entity) points to Google Cloud EMEA Limited as the Maps contracting entity unless otherwise agreed. The [Maps Platform terms](https://cloud.google.com/maps-platform/terms) incorporate the [controller–controller terms](https://business.safety.google/controllerterms/), which identify Google LLC as UK end controller. These are distinct roles. This remains a standard-terms inference until account exceptions are resolved; Maps processing should not be described as wholly processor processing under a generic Cloud DPA.
+For the inspected UK billing profile, the [published entity table](https://cloud.google.com/terms/google-entity) points to Google Cloud EMEA Limited as the Maps contracting entity unless otherwise agreed. The [Maps Platform terms](https://cloud.google.com/maps-platform/terms) incorporate the [controller–controller terms](https://business.safety.google/controllerterms/), which identify Google LLC as UK end controller. These are distinct roles. This is the working standard-terms inference in the absence of an identified override; Maps processing should not be described as wholly processor processing under a generic Cloud DPA.
 
 Create a small private transfer record for each actual flow: Maps SDK/search/coordinates/photos, Netlify delivery/security logs, and Gmail correspondence. Record recipient/entity, role, data, destinations, applicable agreement and transfer mechanism, onward processing, evidence date and review date. Use UK adequacy only where it covers the recipient/data; where contractual safeguards are required, establish the UK provisions and assess any required transfer risk/data protection test. Do not infer data residency from a browser endpoint or a setting for an unused feature.
 
@@ -75,7 +89,7 @@ Please distinguish this hosted site's visitors from visits to Netlify's own mark
 Thank you,
 Malcolm Spina
 
-## Ready-to-send Google enquiry
+## Earlier Google enquiry — historical prepared text
 
 Privacy route: [Google Maps Platform Data Privacy Inquiry form](https://support.google.com/cloud/contact/maps_api_privacy), linked by the [official support documentation](https://developers.google.com/maps/documentation/geocoding/support). Account/terms applicability can also be raised through Google Cloud Console → Google Maps Platform → Support → Create a case, selecting the existing project. Use the normal account; no paid support upgrade is needed merely to inspect the currently available route. Submit only with owner instruction. The privacy form notes that account/system information accompanies the submission.
 
@@ -101,4 +115,4 @@ Keep original correspondence and account identifiers in restricted private stora
 
 The owner launched the unsynchronised **Personal** profile and authenticated normally. The [clean Firefox report](clean-browser-assessment-2026-10-06.md) records successful cookies-allowed/cross-site-blocked comparisons across initial loading, autocomplete, searches/photos, synthetic geocoding and withdrawal. No persistent application storage or Google request cookies were observed; the Netlify private-access HttpOnly cookie was present. Original protection/cache settings were restored, Sync and user extensions remained off, and the Personal profile was retained.
 
-This is a bounded technical inventory, not a completed provider-purpose, lawful-basis or public-visitor assessment. Provider replies and owner approval remain outstanding. The earlier disposable-profile launch difficulty is superseded by the owner-provided working profile; no credentials were transferred between profiles.
+This is a bounded technical inventory, not a completed provider-purpose, lawful-basis or public-visitor assessment. Final owner review remains outstanding; targeted clarification is warranted where it affects the assessment, not as a blanket requirement for provider replies. The earlier disposable-profile launch difficulty is superseded by the owner-provided working profile; no credentials were transferred between profiles.

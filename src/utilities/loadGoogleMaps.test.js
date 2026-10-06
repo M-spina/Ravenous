@@ -36,4 +36,22 @@ describe('Google Maps library loading', () => {
     expect(importLibrary).toHaveBeenNthCalledWith(1, 'places')
     expect(importLibrary).toHaveBeenNthCalledWith(2, 'geocoding')
   })
+  it('shares a pending Places load and allows retry after failure', async () => {
+    let rejectLoad
+    const library = { Place: class Place {} }
+    const importLibrary = vi.fn()
+      .mockImplementationOnce(() => new Promise((_, reject) => { rejectLoad = reject }))
+      .mockResolvedValueOnce(library)
+    globalThis.google = { maps: { importLibrary } }
+    const { loadGoogleMapsScript } = await import('./loadGoogleMaps.js')
+    const first = loadGoogleMapsScript()
+    const second = loadGoogleMapsScript()
+    expect(importLibrary).toHaveBeenCalledOnce()
+    const settled = Promise.allSettled([first, second])
+    rejectLoad(new Error('Temporary failure'))
+    expect((await settled).map((result) => result.status)).toEqual(['rejected', 'rejected'])
+    await expect(loadGoogleMapsScript()).resolves.toBe(library)
+    expect(importLibrary).toHaveBeenCalledTimes(2)
+  })
+
 })

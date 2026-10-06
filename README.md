@@ -156,7 +156,7 @@ src/
 
 ## Current limitations
 
-- There is no live deployment or dedicated restaurant-details route.
+- The Netlify deployment is private during launch preparation; there is no dedicated restaurant-details route.
 - Search and geolocation require a valid Google Cloud billing setup, enabled APIs, quota, and a correctly restricted browser key.
 - Restaurant availability and field completeness depend on Google Places data; missing phone, hours, or links are shown as unavailable.
 - Before a public deployment, review Google Maps Platform policy requirements for attribution, privacy, and terms pages against the final hosting setup.
@@ -171,7 +171,7 @@ src/
 
 ## Launch preparation
 
-The launch work was reviewed in four stacked PRs: dependencies, Google attribution/legal structure, privacy controls, then security configuration. Only the dependency PR initially reached `main`; the Netlify integration PR brings the remaining reviewed changes into `main`.
+The dependency, attribution/legal structure, privacy-control and security changes are merged into `main`, together with Netlify configuration and enforced headers. Draft PR #21 simplifies the notice and defers Google loading until a requested interaction.
 
 - [Dependency audit](docs/dependency-security.md)
 - [Google attribution](docs/google-attribution.md)
@@ -182,4 +182,4 @@ The launch work was reviewed in four stacked PRs: dependencies, Google attributi
 - [Bundled image provenance](docs/asset-provenance.md)
 - [Host headers and launch verification](docs/security-deployment.md)
 
-The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers locally; `netlify.toml` supplies the corresponding host rules and promotes the policy verified in Report-Only to enforcement. Verify the enforcing deployment's actual responses and Google flows privately before releasing the site.
+The legal pages contain concise visitor-facing wording; detailed assessment reasoning and dated test limits are kept in the linked documentation. Complete owner review and the proportionate remaining launch checks before public release. Published standard provider terms are the working arrangement unless an actual override or consequential gap requires clarification. Vite preview applies headers locally; `netlify.toml` supplies the enforcing host policy. Repeat relevant response-header and Google-flow checks after changing the deployment or visitor configuration.

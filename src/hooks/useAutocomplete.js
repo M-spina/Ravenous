@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { getPlacesLibrary } from "../utilities/loadGoogleMaps";
+import { getPlacesLibrary, loadGoogleMapsScript } from "../utilities/loadGoogleMaps";
 
 export const useAutocomplete = () => {
     const [suggestions, setSuggestions] = useState([]);
@@ -46,7 +46,9 @@ export const useAutocomplete = () => {
         requestIdRef.current = requestId;
         setIsLoading(true);
         try {
-            const { AutocompleteSuggestion } = getPlacesLibrary();
+            const { AutocompleteSuggestion } = await loadGoogleMapsScript();
+            // A changed/cleared input must not be disclosed when SDK loading finishes.
+            if (requestId !== requestIdRef.current) return;
             const request = {
                 input: input,
                 sessionToken: getSessionToken(),
