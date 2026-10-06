@@ -18,7 +18,7 @@ The provider documents and confirmed account facts are recorded in [privacy-oper
 
 ## Storage/access assessment
 
-Use a fresh browser profile and the chosen HTTPS preview. Inspect cookies (including third-party cookies), local/session storage, IndexedDB, cache storage and requests before interacting, after autocomplete, after search/photos, and after optional geocoding. Distinguish necessary access from non-exempt purposes and record the ICO exception relied on, its conditions, and supporting evidence. Check behaviour with third-party cookies enabled as well as blocked. Source inspection shows no Ravenous storage writes or analytics; it does not prove Google's or the host's behaviour. Browser automation available in this session does not expose a complete third-party storage inventory; this assessment remains a launch gate.
+The [clean Firefox technical assessment](clean-browser-assessment-2026-10-06.md) now records the staged cookies-allowed/cross-site-blocked comparison on private production. Autocomplete, search/photos, synthetic geocoding and withdrawal worked in both modes; app local/session storage, IndexedDB and Cache Storage were empty, with a separate HttpOnly private-access cookie. No cookie counts were observed on captured Google API/photo requests. This is not evidence of every non-cookie access technique or provider purpose. Complete the purpose/exception-or-consent decision and repeat relevant checks when private login/toolbar is removed; keep those final assessments as launch gates.
 
 If non-exempt activity is found, gate the affected SDK/requests before consent, offer clear accept/refuse choices and withdrawal, stop future requests on withdrawal, and keep legal pages reachable without consent. Do not add a cosmetic banner that leaves the activity running. Repeat the inventory after any consent implementation.
 
@@ -38,7 +38,7 @@ Owner action required: complete https://ico.org.uk/fee-checker with the actual o
 
 - Verify the supplied Gmail inbox is monitored and complete the applicable lawful-basis assessments. Owner identity and contact details are supplied; the retention schedule and operating procedure were approved on 6 October 2026. Completed assessments and inbox-operation checks remain pending.
 - Google/host roles, logging, retention and international transfers.
-- Real-browser storage/access inventory and any necessary consent implementation.
+- Review the completed bounded clean-browser inventory, resolve provider-purpose/exception-or-consent decisions, and check the final visitor configuration.
 - ICO fee-checker result.
 - Accessibility review on the eventual HTTPS deployment.
 
@@ -67,7 +67,7 @@ The initial HTTPS checks support the storage assessment; final security checks f
 | Netlify visitor log fields/purposes and retention/deletion | Review the project’s Observability, Web Analytics, RUM and Log Drains settings; use the prepared support questions in privacy-operations.md for internal CDN/security logs not specified there. Obtain a written answer; do not invent a deletion period. |
 | Owner review of lawful bases | Review privacy-assessment-draft.md, resolve necessity/balancing gaps (especially initial SDK loading), and record the dated decision privately. Procedure approval alone does not approve this assessment. |
 | Account-specific Google terms | Record the applicable Maps subscription/account agreement, accepted version and any overrides from account onboarding records or Google support. Billing settings identify billing arrangements but do not prove all accepted Maps terms. Compare with the published Maps/controller terms. |
-| Public-visitor storage/access | Complete the clean-profile staged inventory and purpose/exception-or-consent decision. Private SSO cookies and toolbar preferences are separate; repeat relevant checks when visibility/features change. |
+| Public-visitor storage/access | Review the completed clean-profile staged inventory and complete the purpose/exception-or-consent decision. Private SSO cookies and toolbar preferences are separate; repeat relevant checks when visibility/features change. |
 | Account-specific transfers/safeguards | Map actual recipients, roles and destinations; confirm current UK adequacy/certification coverage or contractual provisions, onward recipients and any required risk assessment. Ask providers for missing facts. Include the chosen email provider. |
 | Monitored contact and inbox coverage | Put the approved twice-weekly checking, private case record and monthly deletion procedure into operation; test a message and record coverage arrangements. |
 

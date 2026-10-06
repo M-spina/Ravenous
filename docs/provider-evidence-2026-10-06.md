@@ -1,6 +1,6 @@
 # Provider evidence and enquiries — 6 October 2026
 
-Status: public-document research and limited authenticated account inspection completed; enquiries prepared, **not sent**. Clean-profile storage testing and final owner assessment approval remain pending. Keep PR #21 draft and Netlify private. This document contains no credentials, raw browser exports or visitor records.
+Status: public-document research and limited authenticated account inspection completed; enquiries prepared, **not sent**. The staged clean-profile technical comparison is complete; final public-visitor configuration and owner assessment approval remain pending. Keep PR #21 draft and Netlify private. This document contains no credentials, raw browser exports or visitor records.
 
 ## What is established
 
@@ -75,15 +75,8 @@ Malcolm Spina
 
 Keep original correspondence and account identifiers in restricted private storage, outside this public repository. Record a sanitised finding, source/date, relevant configuration and any remaining qualification here. If a provider uses justified retention criteria instead of a fixed period, record those criteria accurately rather than inventing a deadline. Update the notice and owner assessment only after matching the reply to the actual flows. These enquiries do not ask providers to approve the operator's lawful-basis decision.
 
-## Clean-browser assessment to execute
+## Clean-browser technical assessment completed
 
-The existing-profile observations remain limited evidence. The owner authorised a separate-profile/third-party-storage comparison. A disposable profile named Ravenous-storage-test-20261006 was created through Firefox UI. Firefox initially selected it as the default; the original default-release was immediately restored and verified. The launch button did not expose a new test window through Computer Use, so the owner was asked to launch it and complete normal Netlify sign-in. No third-party storage setting has been changed and no clean-profile result is claimed yet.
+The owner launched the unsynchronised **Personal** profile and authenticated normally. The [clean Firefox report](clean-browser-assessment-2026-10-06.md) records successful cookies-allowed/cross-site-blocked comparisons across initial loading, autocomplete, searches/photos, synthetic geocoding and withdrawal. No persistent application storage or Google request cookies were observed; the Netlify private-access HttpOnly cookie was present. Original protection/cache settings were restored, Sync and user extensions remained off, and the Personal profile was retained.
 
-1. Use a fresh, unsynchronised Firefox profile with no extensions. Record the browser version and privacy settings. Authenticate normally for Netlify private access; never copy credentials/cookies from the existing profile.
-2. Record only cookie names/domains/flags/expiry and storage names/counts, with no values, before interaction and after autocomplete, search/photos, optional synthetic geocoding, withdrawal/manual edit and reload. Inspect Cookies (including HttpOnly/third-party), local/session storage, IndexedDB and Cache Storage, and distinguish normal HTTP caching.
-3. Record request origins, initiators and whether Cookie/Set-Cookie headers occur without exporting their values, complete URLs or bodies. Separate private authentication/toolbar requests from Maps and the application.
-4. Compare third-party storage allowed and blocked only in the disposable profile after owner permission. Use separate clean baselines; note Firefox partitioning and blocking so an absence is not falsely reported as provider behaviour.
-5. Compare observed purposes with the current ICO exceptions guidance; document an exception and its conditions per purpose, or gate non-exempt activity before consent. No banner conclusion follows just from finding no cookies.
-6. Restore temporary probes/settings; close the disposable profile. Repeat relevant public-visitor checks when private login/toolbar is removed, before accepting final visitor configuration. Private testing cannot directly prove the public configuration.
-
-Technical results, provider interpretation and owner approval are separate records. This protocol is prepared; it is **not a completed clean-browser inventory**.
+This is a bounded technical inventory, not a completed provider-purpose, lawful-basis or public-visitor assessment. Provider replies and owner approval remain outstanding. The earlier disposable-profile launch difficulty is superseded by the owner-provided working profile; no credentials were transferred between profiles.

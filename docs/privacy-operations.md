@@ -2,7 +2,7 @@
 
 Update: authenticated Firefox observations and inspected Netlify/Google settings are recorded in [the 6 October deployment assessment](deployed-assessment-2026-10-06.md). The observations below distinguish the completed limited checks from outstanding assessments; legal assessments remain pending.
 
-Prepared 6 October 2026. **The sole owner approved the retention schedule and operating procedure on 6 October 2026. The outstanding privacy/storage, provider and launch assessments remain pending.** This public document contains the adopted procedure and sanitised verification facts. It is not a complaint register, a completed storage inventory, or evidence that the public notice is ready for launch.
+Prepared 6 October 2026. **The sole owner approved the retention schedule and operating procedure on 6 October 2026. The outstanding privacy/storage, provider and launch assessments remain pending.** This public document contains the adopted procedure and sanitised verification facts. It is not a complaint register or evidence that the public notice is ready for launch. The bounded clean-profile technical inventory is linked below; legal interpretation and final visitor configuration remain outstanding.
 
 ## Scope
 
@@ -18,7 +18,7 @@ These checks do not establish exact visitor-log retention, accepted agreement ve
 
 ## Additional provider evidence
 
-The [6 October provider evidence and ready-to-send enquiries](provider-evidence-2026-10-06.md) records the Free-plan Observability viewing window, Google request-log documentation, live UK DPF certification checks and exact support routes. No enquiries have been sent. The clean-profile test remains pending; existing-profile observations are not a clean inventory.
+The [6 October provider evidence and ready-to-send enquiries](provider-evidence-2026-10-06.md) records the Free-plan Observability viewing window, Google request-log documentation, live UK DPF certification checks and exact support routes. No enquiries have been sent. The [clean-profile technical comparison](clean-browser-assessment-2026-10-06.md) is complete: both cookie modes passed, with no persistent app storage or captured Google request cookies. The private-access cookie and earlier toolbar preference remain separate from the public configuration. Provider interpretation and final owner approval are pending.
 
 ## Provider documents reviewed
 
@@ -75,7 +75,7 @@ References: [ICO complaint handling](https://ico.org.uk/for-organisations/how-to
 
 - Complete the Google account-agreement review, including accepted versions or exceptions, and verify quotas, alerts and personal MFA. UK billing country and production-key restrictions were inspected in the limited pass.
 - Obtain Netlify's actual visitor-log fields, purposes, retention/deletion and relevant transfer arrangements. Draft a support request; do not send it without the owner's instruction.
-- Complete the browser inventory in a clean profile, comparing third-party cookies allowed/blocked and testing optional geocoding, withdrawal and pending-request cancellation. Initial loading, autocomplete and search/photos were inspected in the limited authenticated Firefox pass. Local source inspection alone cannot establish third-party storage/access.
+- Review the completed clean-profile cookie-mode comparison and earlier cancellation tests, then resolve provider purposes/any required exception or consent. Repeat relevant checks on the final visitor configuration; real OS geolocation permission remains to be tested. Local source inspection alone cannot establish third-party storage/access.
 - Netlify documents that pre-launch-toolbar hide/minimise preferences use local storage, and that the toolbar disappears when the project becomes public. Record test-only toolbar/login behaviour separately and repeat relevant checks on the final visitor configuration. Audits use Agent Runners and consume credits; their findings do not establish lawful bases, exact retention or completed compliance.
 - Review and complete the [draft processing assessment](privacy-assessment-draft.md), including Google's initial page-load requests and whether loading can be deferred. Confirm optional-location consent and separate bases for correspondence and statutory complaints/rights handling.
 - Enforcing headers and the tested private production flows now pass for `17392c5`; repeat relevant checks after configuration or visibility changes, and complete the framing/device-permission limitations recorded in the production report.
