@@ -38,7 +38,7 @@ The published Maps terms incorporate controller–controller terms. Those terms 
 
 ## Adopted retention schedule
 
-These are adopted owner-controlled defaults, not statutory periods or confirmed provider settings. Permit earlier deletion where information is no longer needed. The privacy inbox/contact and email-provider arrangements must be configured before launch; approval of this procedure does not prove they are already operating.
+These are adopted owner-controlled defaults, not statutory periods or confirmed provider settings. Permit earlier deletion where information is no longer needed. The owner supplied Malcolm Spina and malpoke1@gmail.com as the public contact on 6 October 2026 and reported creating the Gmail inbox. Delivery, monitoring, MFA, absence coverage and email-provider arrangements still need verification before launch; approval of this procedure does not prove they are already operating.
 
 | Information | Adopted period or criterion | Reason and action |
 | --- | --- | --- |
@@ -75,7 +75,7 @@ References: [ICO complaint handling](https://ico.org.uk/for-organisations/how-to
 - Netlify documents that pre-launch-toolbar hide/minimise preferences use local storage, and that the toolbar disappears when the project becomes public. Record test-only toolbar/login behaviour separately and repeat relevant checks on the final visitor configuration. Audits use Agent Runners and consume credits; their findings do not establish lawful bases, exact retention or completed compliance.
 - Review and complete the [draft processing assessment](privacy-assessment-draft.md), including Google's initial page-load requests and whether loading can be deferred. Confirm optional-location consent and separate bases for correspondence and statutory complaints/rights handling.
 - Enforcing headers and the tested private production flows now pass for `17392c5`; repeat relevant checks after configuration or visibility changes, and complete the framing/device-permission limitations recorded in the production report.
-- Supply owner/contact details, put the adopted procedure into operation, and complete the ICO fee assessment with the actual owner facts.
+- Owner/contact details are supplied. Verify the Gmail inbox, put the adopted procedure into operation, and complete the ICO fee assessment with the actual owner facts.
 
 [Netlify pre-launch-toolbar documentation](https://docs.netlify.com/manage/projects/pre-launch-toolbar/), [ICO storage/access exceptions](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/).
 

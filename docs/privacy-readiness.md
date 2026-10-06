@@ -24,7 +24,7 @@ ICO guidance: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-
 
 ## Privacy enquiries and complaints
 
-Replace the contact placeholder with a monitored address. Record receipt date, reference, concern and minimum necessary contact details in a restricted private record. Acknowledge within 30 days, investigate proportionately, give progress updates where appropriate, and communicate the outcome and ICO escalation route. Set and document a justified retention/deletion period for correspondence and complaint records. Record applicable rights requests and their deadlines; do not copy those private records into this public repository.
+The owner supplied Malcolm Spina and malpoke1@gmail.com as the public contact on 6 October 2026. Delivery, monitoring, account security and absence coverage still need confirmation. Record receipt date, reference, concern and minimum necessary contact details in a restricted private record. Acknowledge within 30 days, investigate proportionately, give progress updates where appropriate, and communicate the outcome and ICO escalation route. Set and document a justified retention/deletion period for correspondence and complaint records. Record applicable rights requests and their deadlines; do not copy those private records into this public repository.
 
 Current requirements: https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2026/06/new-data-protection-complaints-law-now-in-force/
 
@@ -34,7 +34,7 @@ Owner action required: complete https://ico.org.uk/fee-checker with the actual o
 
 ## Remaining publication gates
 
-- Owner identity, monitored contact and applicable lawful-basis assessments. The retention schedule and operating procedure were approved on 6 October 2026; completing the assessments and establishing the inbox remain pending.
+- Verify the supplied Gmail inbox is monitored and complete the applicable lawful-basis assessments. Owner identity and contact details are supplied; the retention schedule and operating procedure were approved on 6 October 2026. Completed assessments and inbox-operation checks remain pending.
 - Google/host roles, logging, retention and international transfers.
 - Real-browser storage/access inventory and any necessary consent implementation.
 - ICO fee-checker result.
@@ -61,7 +61,7 @@ The initial HTTPS checks support the storage assessment; final security checks f
 
 | Public draft field | How to resolve it |
 | --- | --- |
-| Owner name/contact/privacy email (and Terms contact email) | Owner supplies the public identity and monitored address. A dedicated email/alias is optional; test delivery, spam checks, MFA and absence coverage. Assess the email provider before inserting it. |
+| Owner name/contact/privacy email (and Terms contact email) | Supplied by the owner on 6 October 2026: Malcolm Spina, malpoke1@gmail.com; inserted in both legal pages. Verify Gmail delivery, spam checks, MFA and absence coverage, and complete the email-provider assessment before public release. |
 | Netlify visitor log fields/purposes and retention/deletion | Review the project’s Observability, Web Analytics, RUM and Log Drains settings; use the prepared support questions in privacy-operations.md for internal CDN/security logs not specified there. Obtain a written answer; do not invent a deletion period. |
 | Owner review of lawful bases | Review privacy-assessment-draft.md, resolve necessity/balancing gaps (especially initial SDK loading), and record the dated decision privately. Procedure approval alone does not approve this assessment. |
 | Account-specific Google terms | Record the applicable Maps subscription/account agreement, accepted version and any overrides from account onboarding records or Google support. Billing settings identify billing arrangements but do not prove all accepted Maps terms. Compare with the published Maps/controller terms. |
@@ -70,3 +70,7 @@ The initial HTTPS checks support the storage assessment; final security checks f
 | Monitored contact and inbox coverage | Put the approved twice-weekly checking, private case record and monthly deletion procedure into operation; test a message and record coverage arrangements. |
 
 No messages have been sent to providers and no account agreements accepted on the owner's behalf. Header configuration and application flows are now verified for the named commit; unresolved privacy fields still prevent public release.
+
+## Owner input recorded — 6 October 2026
+
+The owner confirmed that no written Netlify log-retention answer or account-specific Google agreement has been obtained. Those fields remain pending. Continue this work in draft PR #21; adding confirmed contact details does not complete the provider/storage assessments or authorise public release.
