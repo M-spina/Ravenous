@@ -178,7 +178,8 @@ The launch work was reviewed in four stacked PRs: dependencies, Google attributi
 - [Privacy and owner actions](docs/privacy-readiness.md)
 - [Adopted retention and operating procedure](docs/privacy-operations.md)
 - [Private deployment assessment](docs/deployed-assessment-2026-10-06.md)
+- [Deployed Report-Only security verification](docs/security-verification-2026-10-06.md)
 - [Bundled image provenance](docs/asset-provenance.md)
 - [Host headers and launch verification](docs/security-deployment.md)
 
-The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers locally; `netlify.toml` supplies the corresponding host rules, starting with Report-Only CSP. Verify the actual deployed responses and Google flows privately before enforcing CSP and releasing the site.
+The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers locally; `netlify.toml` supplies the corresponding host rules and promotes the policy verified in Report-Only to enforcement. Verify the enforcing deployment's actual responses and Google flows privately before releasing the site.
