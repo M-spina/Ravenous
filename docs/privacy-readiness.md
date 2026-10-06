@@ -10,6 +10,8 @@ Draft PR #21 contains a concise, placeholder-free visitor notice and short terms
 - UK Extension/Non-HR certifications for Google LLC and Netlify, Inc. checked Active on 6 October, and published onward-transfer/contractual safeguards. These are qualified evidence, not a blanket guarantee for every recipient.
 - [Enforced production headers and functional checks](production-verification-2026-10-06.md) for `main@17392c5`. This is dated evidence, not a claim about every future deployment.
 
+The [PR #21 simplification verification](privacy-simplification-verification-2026-10-06.md) records deferred loading, successful current preview flows and their limits separately from those historical results.
+
 ## Remaining actions
 
 1. **Owner review:** read the short notice and assessment; confirm the owner-selected deferred SDK loading, confirm the described scope and adopt the basis/safeguard decisions. The approved procedure and inbox check do not invent assessment approval. A dated note identifying the version and decisions is sufficient for this project.
