@@ -1,5 +1,7 @@
 # Privacy launch inputs and operational procedure
 
+Authenticated Firefox testing is now recorded in [the 6 October deployment assessment](deployed-assessment-2026-10-06.md). The limited storage pass is not a complete fresh-profile/third-party-cookie assessment. Exact provider log retention, legal decisions and final owner sign-off of the assessments remain pending. The owner approved the retention schedule and operating procedure on 6 October 2026.
+
 The public notice is a draft. Do not publish it as complete until every bracketed field is resolved. No owner, hosting entity, log retention or international-transfer safeguard has been invented.
 
 ## Processing and lawful-basis assessment
@@ -10,7 +12,7 @@ Coordinates stay in memory. Stop/manual entry invalidates pending position and g
 
 ## Google and host assessment
 
-Confirm applicable Google terms, legal entity and roles. Record the selected host's data terms, log fields, region, retention and settings. Identify every relevant transfer and the applicable safeguard or adequacy basis; obtain a transfer assessment where required. Only then fill the notice with verified details.
+Confirm applicable Google terms, legal entity and roles. Netlify is now the host. On 6 October 2026, the connected Netlify tools confirmed the Free plan, one member, a ready deploy from codex/launch-security, login restrictions across all deploys, Forms disabled and no functions deployed. The subsequent authenticated Firefox pass checked application responses and limited storage/access behaviour: the earlier deployment lacked the planned security headers. A complete storage inventory, exact hosting-log retention and applicable Google account agreements remain pending. See privacy-operations.md for the adopted procedure and provider references. Record its applicable data terms, visitor/CDN/security log fields, processing locations, retention and settings. Public references: https://www.netlify.com/privacy/ and https://www.netlify.com/pdf/netlify-dpa.pdf. Confirm actual retention with Netlify where documentation does not specify it; dashboard visibility is not proof of deletion. Identify every relevant transfer and the applicable safeguard or adequacy basis; obtain a transfer assessment where required. Only then fill the notice with verified details.
 
 ## Storage/access assessment
 
@@ -32,10 +34,25 @@ Owner action required: complete https://ico.org.uk/fee-checker with the actual o
 
 ## Remaining publication gates
 
-- Owner identity, monitored contact and applicable lawful-basis assessments.
+- Owner identity, monitored contact and applicable lawful-basis assessments. The retention schedule and operating procedure were approved on 6 October 2026; completing the assessments and establishing the inbox remain pending.
 - Google/host roles, logging, retention and international transfers.
 - Real-browser storage/access inventory and any necessary consent implementation.
 - ICO fee-checker result.
 - Accessibility review on the eventual HTTPS deployment.
 
 Privacy-notice source: https://ico.org.uk/for-organisations/advice-for-small-organisations/privacy-notices-and-cookies/how-to-write-a-privacy-notice-and-what-goes-in-it/
+
+## Public documentation and private evidence
+
+This file is a public checklist, not the completed assessment or a record of visitor information. Keep generic documentation, licence provenance and sanitised validation summaries in the public repository. Keep complaints, email correspondence, raw logs, browser exports and assessment evidence containing personal or confidential information outside the checkout in restricted private storage. Never use the public repository as a complaint register. A gitignore rule does not hide tracked files or remove Git history.
+
+## Order of launch preparation with Netlify
+
+1. Draft verified project/provider wording locally; leave owner details and unverified assessments marked as pending.
+2. Set up the Netlify account and relevant plan/settings, enable MFA, and confirm data terms/logging. GitHub linking is optional for a manual deployment; it enables automatic builds/deployments when configured.
+3. Prepare Netlify response headers and a restricted HTTPS test deployment before inviting public visitors. Configure and verify actual access restrictions: a preview URL alone does not make a deployment private.
+4. Verify HTTPS/certificate behaviour and Report-Only CSP while inspecting Google and host storage/access. Distinguish Netlify login or preview-toolbar behaviour from the app itself and repeat relevant checks when those features or visibility change.
+5. Complete lawful-basis, retention, transfer and complaints decisions, record private evidence, and replace remaining public placeholders with factual wording. Implement any required storage/access consent controls and retest.
+6. Enforce the verified CSP and repeat functional/header/storage checks on the final hostname before public release. Fill contact details, verify the privacy inbox, and complete other launch gates.
+
+The initial HTTPS checks support the storage assessment; final security checks follow the completed configuration. Neither these public instructions nor provider policy links establish that an assessment has passed.

@@ -1,10 +1,18 @@
 # Static-host security configuration and launch verification
 
-Hosting is intentionally undecided. Nothing here deploys a site, adds authentication, changes keys, or claims an HTTPS host has been verified. Restaurant discovery remains public.
+Authenticated Firefox checks on 6 October found HTTP 200 and HSTS on all three HTML pages, but **none of the planned application security headers**. See [the deployment assessment](deployed-assessment-2026-10-06.md). Configure actual Netlify response headers and retest privately before public launch.
 
-## Configuration to apply to the chosen host
+Netlify hosts a private deployment. Its earlier authenticated HTML responses, HTTPS/access protection and limited search flows have been checked, as recorded in the dated assessment. Headers, CSP and functional checks against the newly configured revision remain pending. This repository configuration does not change account settings or deploy the site. The application requires no visitor account of its own; Netlify's temporary private-access restriction remains in place during testing.
 
-`config/securityHeaders.js` is the source of the candidate CSP and other response headers. Export its values into the selected host's actual HTTP-header mechanism for **all HTML pages** and redirects as applicable. Vite's `preview.headers` exercises these values locally; building `dist/` does **not** configure a production host. A meta tag cannot supply `frame-ancestors`.
+## Netlify configuration and branch selection
+
+`netlify.toml` at the repository root configures `npm run build`, publication from `dist`, Node 24 and all four companion headers for `/*`. Its CSP starts in Report-Only and matches the candidate in `config/securityHeaders.js`. Netlify applies it on the next build of a branch containing this file; local Vite preview settings do not configure production responses. Keep both copies of the policy aligned when editing.
+
+The 6 October GitHub check found #15 merged into `main`, but #16, #17 and #18 merged into temporary feature-branch bases. This PR integrates their reviewed source changes and history into a branch targeting `main`; the prior “merged” status did not mean they had reached `main`.
+
+After reviewing and merging this PR, set Netlify's production branch to `main` under Project configuration → Developer settings → Continuous deployment → Branches and deploy contexts. Keep production and previews Private while testing. Confirm the resulting deploy uses the expected main commit, `netlify.toml`, three HTML entry points and processed header rules. Leave the Google key in Netlify's existing environment configuration; no keys belong in this file.
+
+Do not add an SPA catch-all rewrite: legal HTML URLs must remain independently accessible. HSTS is already supplied by the Netlify hosting layer; no custom HSTS override is introduced.
 
 Start with `Content-Security-Policy-Report-Only`, then replace it with `Content-Security-Policy` once the HTTPS browser checks below pass. Avoid accidentally retaining a second, conflicting enforcing policy. The companion headers are:
 
@@ -44,11 +52,11 @@ npm run verify:headers -- http://localhost:5173 --local
 
 The checker fetches `/`, `/terms.html` and `/privacy.html`, checks actual response headers and page identity, and fails for missing restrictions or JavaScript-dependent legal pages. It does not replace browser testing or prove third-party storage behaviour.
 
-## Required HTTPS-host checks — pending until a host is selected
+## Required HTTPS-host checks — pending after the configured Netlify deploy
 
 1. Serve all three real HTML pages directly; do not route legal URLs to an SPA fallback. Fill every legal placeholder and complete `privacy-readiness.md` before public release.
 2. Redirect HTTP to HTTPS without an intervening insecure page. Verify the final certificate and redirects for both hostnames if using `www` and the apex domain.
-3. Set `Strict-Transport-Security` only after confirming HTTPS works. Start with a suitable short positive `max-age`, verify it, then increase deliberately. Add `includeSubDomains` only when every affected subdomain supports HTTPS. Preload requires a separate owner decision and its eligibility checks.
+3. Recheck Netlify's supplied `Strict-Transport-Security` on the final deployment; the earlier `netlify.app` responses had a one-year `max-age`, `includeSubDomains` and `preload`. Do not override that platform setting without a reason. For any future custom domain, verify HTTPS on all affected subdomains before adopting `includeSubDomains`; a `preload` header token does not establish preload-list inclusion.
 4. On a private HTTPS preview, apply Report-Only CSP. Exercise initial load, keyboard autocomplete selection, manual search, result sorting, photos and optional reverse geocoding with test data. Check every CSP report; document any necessary source additions. Verify manual entry still works after geolocation denial/failure.
 5. Switch that verified policy to enforcement. Repeat the same operations and ensure images load. Try embedding the preview in a separate-origin iframe and verify the browser blocks it. Confirm legal pages work when Google is unavailable.
 6. Run `npm run verify:headers -- https://YOUR-HOST --report-only` during staging, then `npm run verify:headers -- https://YOUR-HOST` after enforcement. HTTPS checks also require an active HSTS header. Save dated evidence without keys, personal locations or Google result/photo data.
@@ -68,3 +76,12 @@ Record the chosen host, deployed revision, header values, browser/version, opera
 - Temporary browser test fixtures are excluded from the repository and removed by the final production build. No personal coordinates or fetched Google photos/results were saved as evidence.
 
 These local checks do not establish HTTPS-host behaviour, Google/host storage/access, account MFA, HSTS or a completed privacy assessment. Those launch checks remain pending.
+
+## Netlify toolbar and badge compatibility
+
+Netlify's injected private toolbar/public badge may be blocked when this CSP is enforced because it uses an inline frame/script. Assess and record that optional-UI behaviour; do not add inline-script permission solely to preserve it. Report-Only does not prove framing is blocked: X-Frame-Options is enforced immediately, and the enforced CSP must also be tested. The authenticated checks in the dated assessment describe the earlier deployment without this configuration, not a passing result for the new revision.
+
+
+## Integration validation recorded on 6 October 2026
+
+A clean installation on Node 24.21.0, lint, all 72 tests, the production multipage build and the high/critical audit gate passed (zero vulnerabilities). The parsed `netlify.toml` header rules match `config/securityHeaders.js`; all three HTML entry points are present in `dist`. Local production-preview response checks passed in Report-Only mode. These checks do not verify the newly configured Netlify deployment.

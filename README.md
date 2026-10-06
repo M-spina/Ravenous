@@ -10,7 +10,7 @@
 
 Ravenous turns a cuisine or restaurant query and a location into a sortable set of nearby places. It was built as a portfolio project focused on predictable state management, resilient browser API interactions, accessible UI, and production-minded quality checks.
 
-There is no hosted deployment yet. The interface includes Google attribution, optional precise-location withdrawal, and draft standalone legal pages.
+A private Netlify deployment is being checked before public release. The interface includes Google attribution, optional precise-location withdrawal, and draft standalone legal pages.
 
 ## Features
 
@@ -171,12 +171,14 @@ src/
 
 ## Launch preparation
 
-These changes are delivered as four stacked draft PRs. Review dependency updates, Google attribution/legal structure, privacy controls, then security configuration.
+The launch work was reviewed in four stacked PRs: dependencies, Google attribution/legal structure, privacy controls, then security configuration. Only the dependency PR initially reached `main`; the Netlify integration PR brings the remaining reviewed changes into `main`.
 
 - [Dependency audit](docs/dependency-security.md)
 - [Google attribution](docs/google-attribution.md)
 - [Privacy and owner actions](docs/privacy-readiness.md)
+- [Adopted retention and operating procedure](docs/privacy-operations.md)
+- [Private deployment assessment](docs/deployed-assessment-2026-10-06.md)
 - [Bundled image provenance](docs/asset-provenance.md)
 - [Host headers and launch verification](docs/security-deployment.md)
 
-The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers; a production host needs its own HTTP-header configuration.
+The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers locally; `netlify.toml` supplies the corresponding host rules, starting with Report-Only CSP. Verify the actual deployed responses and Google flows privately before enforcing CSP and releasing the site.
