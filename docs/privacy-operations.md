@@ -71,6 +71,34 @@ ICO reference: [Storage limitation](https://ico.org.uk/for-organisations/uk-gdpr
 
 References: [ICO complaint handling](https://ico.org.uk/for-organisations/how-to-deal-with-data-protection-complaints/what-do-we-do-when-we-receive-a-complaint/), [privacy notices](https://ico.org.uk/for-organisations/advice-for-small-organisations/privacy-notices-and-cookies/how-to-write-a-privacy-notice-and-what-goes-in-it/).
 
+## Inbox verification before launch
+
+This is a delivery and operating check, not an identity-verification service. The owner should:
+
+1. From another email account, send a harmless message to malpoke1@gmail.com with a unique subject such as Ravenous privacy inbox test plus the date.
+2. Sign into that inbox and confirm receipt; check Spam if it is missing. Do not assume a sent message or absence of a bounce proves delivery.
+3. Reply from malpoke1@gmail.com and verify the reply reaches the original sender. Check that the sender/reply address is correct.
+4. Click the privacy notice's email link and confirm the compose window targets malpoke1@gmail.com. Sending through that link is optional.
+5. Confirm account recovery and MFA are configured, only authorised access exists, and twice-weekly inbox/spam checks and a reliable absence-checking arrangement are in operation.
+6. Keep a minimal private note of date, inbound/outbound delivery outcome, checking schedule and account-security confirmation. Do not store passwords, recovery codes or message contents in this repository. Delete disposable test messages when no longer useful.
+
+Until those checks are reported as complete, the notice's inbox-operation placeholder remains pending. This does not test complaint investigation itself or complete the Gmail provider/transfer assessment.
+
+## How the sole owner completes assessment approval
+
+Approval is a dated operator decision about a specific completed assessment and notice version. It is not a request for Google or the ICO to approve Ravenous, and it does not turn missing evidence into a passing result. A proportionate written record is enough; no particular signature technology is prescribed by this project.
+
+1. Review privacy-assessment-draft.md and the technical/provider evidence. For each activity, record the applicable basis and reasons; for proposed legitimate interests address purpose, necessity/less intrusive alternatives and balancing/safeguards. In particular decide whether initial SDK loading should be deferred and whether automatic partial-location suggestions remain justified.
+2. Resolve relevant provider facts from applicable documents, account records and replies where needed: purposes/roles, retention criteria, destinations and safeguards. Review Gmail correspondence as well as Maps and hosting. Record any limits accurately; a fixed deletion period or custom agreement is not automatically necessary.
+3. Confirm optional-location choice/withdrawal and any storage/access exception or required consent; complete the final configuration and documented test gaps. Complete inbox operation and the fee-checker decision, and make the visitor notice accurately describe the resulting arrangements.
+4. Record the owner, date, assessment version/commit, notice version, adopted decisions and evidence, outstanding conditions (if any), and next review date in a restricted private file. A conditional approval is not final launch approval. Keep other functional/accessibility/security launch checks separate.
+
+Suggested final record, to use only when the identified work is complete:
+
+> Malcolm Spina, [date]: I reviewed assessment [version/commit] and privacy notice [version]. I adopt the recorded processing bases, purpose/exception decisions, safeguards, retention and handling procedure, having resolved the identified evidence gaps. Inbox operation was verified on [date]. Next review: [date], or earlier if processing/settings change.
+
+The owner can communicate these confirmations in the chat so the draft documentation and notice can be updated. No approval is recorded merely by providing contact details or approving the earlier operating procedure.
+
 ## Outstanding evidence and concise public wording
 
 - Complete the Google account-agreement review, including accepted versions or exceptions, and verify quotas, alerts and personal MFA. UK billing country and production-key restrictions were inspected in the limited pass.

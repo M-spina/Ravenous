@@ -53,23 +53,17 @@ Privacy route: [Google Maps Platform Data Privacy Inquiry form](https://support.
 
 Contact email: malpoke1@gmail.com (verify delivery before submission).
 
-Subject: UK self-service Maps privacy/terms confirmation for a static portfolio app
+Full Description: **916 characters including spaces and line breaks**. Paste only the text inside this block; the form has no separate subject field. No enquiry has been submitted.
 
-Hello,
+```text
+I am the sole UK operator of Ravenous (https://ravenousfind.netlify.app), a free portfolio app with UK billing. It uses Maps JavaScript API, Places autocomplete/text search/photos and optional reverse geocoding. The SDK loads before interaction; there are no visitor accounts, saved searches, ads or analytics.
 
-I am the sole UK operator of Ravenous, a free personal portfolio restaurant-discovery app at https://ravenousfind.netlify.app. The selected Google Cloud billing profile is UK. The app uses Maps JavaScript API, Places features (location autocomplete, text search, restaurant details/photos and attribution) and browser-side reverse geocoding for optional location. It has no saved-search database, user accounts, advertising or analytics feature. Maps loads on the search page before interaction; legal pages do not load Maps.
-
-Please confirm or identify the applicable documentation for:
-
-1. The standard Maps agreement and incorporated data terms applicable to this UK self-service configuration, the contracting entity and Google's controller/processor roles for these services. If account-specific exceptions cannot be checked through this form, which account-support route should I use?
-2. Request-log fields/purposes and retention/deletion periods or criteria for the SDK, autocomplete, text search, photos and geocoding, including optional coordinates and requests before interaction.
-3. Any browser storage/access or identifiers used by these services, their purposes/expiry and whether they are separable from the requested functionality. Please distinguish standard operation from signed-in Google services or optional features.
-4. Relevant processing destinations/recipients and safeguards for UK data, including the scope of Google LLC's UK DPF Extension coverage, onward transfers and any applicable UK contractual provisions. How can I obtain the relevant safeguard details or copies?
-
-Please do not treat removal of page-memory coordinates as deletion of Google-held records. I want to describe the actual services and safeguards accurately in a concise privacy notice.
-
-Thank you,
-Malcolm Spina
+Please confirm or link to:
+1. Applicable Maps/data terms, contracting entity and controller/processor roles; how to check account exceptions.
+2. Request-log fields, purposes and retention/deletion periods or criteria for these features, including initial loading and coordinates.
+3. Browser storage/device access, identifiers, purposes and expiry, including non-cookie access. Clean Firefox tests observed no Google API/photo request cookies or persistent app storage.
+4. UK transfer destinations/recipients, applicable DPF or contractual safeguards, onward transfers and how to obtain safeguard details.
+```
 
 ## How to use the replies
 
