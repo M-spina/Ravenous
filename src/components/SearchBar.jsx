@@ -12,6 +12,7 @@ import { LoaderCircle, LocateFixed, Search } from 'lucide-react';
 export default function SearchBar() {
   const dispatch = useDispatch();
   const locationRequestRef = useRef(0);
+  const locationInputRef = useRef(null);
   const [isUsingLocation, setIsUsingLocation] = useState(false);
   useEffect(() => () => { locationRequestRef.current += 1; }, []);
   const [reverseGeocodeError, setReverseGeocodeError] = useState(null);
@@ -93,7 +94,7 @@ export default function SearchBar() {
               Where?
             </label>
             <div className="flex min-w-0">
-              <LocationInput value={location} onChange={handleLocationChange} descriptionId="location-sharing-notice" />
+              <LocationInput value={location} onChange={handleLocationChange} descriptionId="location-sharing-notice" inputRef={locationInputRef} />
               <Button
                 type="button"
                 variant="secondary"
@@ -105,21 +106,21 @@ export default function SearchBar() {
                 title="Use my current location"
                 className="h-12 rounded-l-none border border-l-0 border-input"
               >
-                {isLocating || isUsingLocation ? <LoaderCircle aria-hidden="true" className="animate-spin" /> : <LocateFixed aria-hidden="true" />}
+                {isLocating || isUsingLocation ? <LoaderCircle aria-hidden="true" className="animate-spin motion-reduce:animate-none" /> : <LocateFixed aria-hidden="true" />}
               </Button>
             </div>
             <p id="location-sharing-notice" className="text-xs leading-relaxed text-muted-foreground">
               Typed locations are sent to Google for suggestions. Choosing “Use my current location” shares your precise coordinates with Google to identify your area and find nearby restaurants. You can type a location instead. <a href="/privacy.html" className="underline underline-offset-2">Privacy notice</a>
             </p>
             {(coords || isLocating || isUsingLocation) && (
-              <Button type="button" variant="outline" size="sm" onClick={stopUsingPreciseLocation} className="h-auto max-w-full whitespace-normal text-left">
+              <Button type="button" variant="outline" size="sm" onClick={() => { stopUsingPreciseLocation(); locationInputRef.current?.focus(); }} className="h-auto max-w-full whitespace-normal text-left">
                 Stop using precise location
               </Button>
             )}
           </div>
         </div>
         <Button type="submit" size="lg" className="h-12 w-full text-base" disabled={!mapsLoaded || isLoading || !term || !location}>
-          {isLoading && <LoaderCircle aria-hidden="true" className="animate-spin" />}
+          {isLoading && <LoaderCircle aria-hidden="true" className="animate-spin motion-reduce:animate-none" />}
           {!isLoading && <Search aria-hidden="true" />}
           {!mapsLoaded ? 'Loading Maps...' : isLoading ? 'Searching...' : 'Search restaurants'}
         </Button>

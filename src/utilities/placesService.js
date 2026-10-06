@@ -7,7 +7,7 @@ export const searchPlaces = async (query, location, coords = null) => {
 
         const request = {
             textQuery: `${query} in ${location}`,
-            fields: ['id', 'displayName', 'formattedAddress', 'location', 'photos', 'rating', 'userRatingCount', 'types', 'priceLevel', 'internationalPhoneNumber',  'googleMapsURI', 'regularOpeningHours'],
+            fields: ['attributions', 'id', 'displayName', 'formattedAddress', 'location', 'photos', 'rating', 'userRatingCount', 'types', 'priceLevel', 'internationalPhoneNumber',  'googleMapsURI', 'regularOpeningHours'],
             maxResultCount: 20
         };
 

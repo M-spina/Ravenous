@@ -4,13 +4,12 @@ import { Input } from './ui/input';
 import { LoaderCircle, MapPin } from 'lucide-react';
 import GoogleMapsAttribution from './GoogleMapsAttribution';
 
-export default function LocationInput({ value, onChange, descriptionId }) {
+export default function LocationInput({ value, onChange, descriptionId, inputRef }) {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [activeIndex, setActiveIndex] = useState(-1);
     const { suggestions, isLoading, fetchSuggestions, clearSuggestions, resetSession } = useAutocomplete();
     const dropdownRef = useRef(null);
-    const inputRef = useRef(null);
     const debounceTimeoutRef = useRef(null);
 
     // close dropdown when clicking outside
@@ -148,7 +147,7 @@ export default function LocationInput({ value, onChange, descriptionId }) {
             {showDropdown && isLoading && (
                 <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-xl">
                     <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                        <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
+                        <LoaderCircle aria-hidden="true" className="size-4 animate-spin motion-reduce:animate-none" />
                         Searching locations...
                     </div>
                 </div>

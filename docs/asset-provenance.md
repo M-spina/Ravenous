@@ -4,6 +4,7 @@
 - `public/ravenous-social-preview.png`: original project graphic rendered from simple geometry and text with Pillow. Typography uses Pillow's bundled Aileron default font for rendering; no font file is distributed. The original font publisher permits use, modification and redistribution under “No Rights Reserved”: https://dotcolon.net/fonts/aileron/ (checked 5 October 2026). This replaces the old meal photograph, whose provenance was not recorded.
 - `public/ravenous-favicon.svg`: project-native geometric SVG branding retained from the repository; contains basic vector paths rather than an external raster photograph.
 - `public/google-maps-attribution.svg`: unmodified official Google Maps logo; source and permitted attribution use are documented in `google-attribution.md`. The logo remains Google's mark; it is not Ravenous artwork.
+- Lucide icons: `lucide-react` package, ISC licence (with MIT notices for Feather-derived icons). The installed package's full notice is retained in `public/lucide-license.txt` for distribution.
 - Google restaurant photos: fetched at runtime, never bundled or persisted by Ravenous; supplied author attribution is displayed. Use remains subject to Google's terms and contributor rights.
 
 Removed unused `14.jpg` and old README screenshot JPGs because their photographic sources/licences were not recorded. Removed the unused React starter logo. API keys and environment files were not changed.
