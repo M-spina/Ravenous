@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:headers": "node scripts/verify-headers.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",

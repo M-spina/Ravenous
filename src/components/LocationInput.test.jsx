@@ -81,6 +81,19 @@ describe('LocationInput autocomplete lifecycle', () => {
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
 
+  it('keeps Google attribution outside selectable suggestions', () => {
+    useAutocomplete.mockReturnValue({ suggestions: [{ placeId: 'london', text: 'London', mainText: 'London', secondaryText: 'UK' }], isLoading: false, fetchSuggestions, clearSuggestions, resetSession })
+    render(<ControlledLocationInput initialValue="London" />)
+    fireEvent.focus(screen.getByRole('combobox'))
+    const attribution = screen.getByRole('img', { name: 'Google Maps' })
+    expect(screen.getByRole('listbox')).not.toContainElement(attribution)
+    expect(screen.getAllByRole('option')).toHaveLength(1)
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'ArrowDown' })
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'Enter' })
+    expect(resetSession).toHaveBeenCalledOnce()
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
+
   it('cancels a pending debounce timer when it unmounts', () => {
     const { unmount } = render(<ControlledLocationInput />)
 

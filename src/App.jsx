@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import SearchBar from './components/SearchBar'
+import SiteFooter from './components/SiteFooter'
 import BusinessList from './components/BusinessList'
 import SortBar from './components/SortBar'
 import BusinessListSkeleton from './components/Skeletons/BusinessListSkeleton'
@@ -41,6 +42,9 @@ function App() {
       </header>
 
       <main className="mx-auto w-full max-w-7xl px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+        <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+          {isLoading ? 'Searching for restaurants…' : hasSearched && !error ? `${businesses.length} restaurant${businesses.length === 1 ? '' : 's'} found.` : ''}
+        </p>
         <div className="space-y-4">
           {mapsError && (
             <Alert variant="destructive" className="mx-auto max-w-4xl shadow-sm">
@@ -84,6 +88,7 @@ function App() {
           </>
         )}
       </main>
+      <SiteFooter />
     </div>
   )
 }

@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 export const useGeolocation = () => {
+    const requestIdRef = useRef(0);
+    useEffect(() => () => { requestIdRef.current += 1; }, []);
+
     const [isLocating, setIsLocating] = useState(false);
     const [geoError, setGeoError] = useState(null);
 
@@ -50,17 +53,24 @@ export const useGeolocation = () => {
     };
     // Call this function to get the user's current location when needed
     const getUserLocation = async () => {
+        const requestId = ++requestIdRef.current;
         setIsLocating(true);
         setGeoError(null);
         try {
             const coords = await getCurrentLocation();
-            return coords;
+            return requestId === requestIdRef.current ? coords : undefined;
         } catch (error) {
-            setGeoError(error.message);
+            if (requestId === requestIdRef.current) setGeoError(error.message);
         } finally {
-            setIsLocating(false);
+            if (requestId === requestIdRef.current) setIsLocating(false);
         }
     };
 
-    return { getUserLocation, isLocating, geoError };
+    const cancelLocation = () => {
+        requestIdRef.current += 1;
+        setIsLocating(false);
+        setGeoError(null);
+    };
+
+    return { getUserLocation, cancelLocation, isLocating, geoError };
 }

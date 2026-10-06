@@ -10,13 +10,7 @@
 
 Ravenous turns a cuisine or restaurant query and a location into a sortable set of nearby places. It was built as a portfolio project focused on predictable state management, resilient browser API interactions, accessible UI, and production-minded quality checks.
 
-There is no hosted deployment yet. The screenshots below use representative local preview data and show the current interface.
-
-## Screenshots
-
-![Ravenous search form with three restaurant results](./docs/screenshots/ravenous-search-results.jpg)
-
-![Ravenous restaurant card showing phone, Google Maps link, and opening hours](./docs/screenshots/ravenous-restaurant-details.jpg)
+A private Netlify deployment is being checked before public release. The interface includes Google attribution, optional precise-location withdrawal, and draft standalone legal pages.
 
 ## Features
 
@@ -174,3 +168,17 @@ src/
 - Browser geolocation is a multi-step interaction: permission, position lookup, reverse geocoding, and manual recovery each need explicit feedback.
 - Accessibility and release hygiene are easiest to preserve when lint, tests, and production builds are required on every pull request.
 - A browser API key is protected through least-privilege platform restrictions and rotation—not by treating bundled configuration as a secret.
+
+## Launch preparation
+
+The launch work was reviewed in four stacked PRs: dependencies, Google attribution/legal structure, privacy controls, then security configuration. Only the dependency PR initially reached `main`; the Netlify integration PR brings the remaining reviewed changes into `main`.
+
+- [Dependency audit](docs/dependency-security.md)
+- [Google attribution](docs/google-attribution.md)
+- [Privacy and owner actions](docs/privacy-readiness.md)
+- [Adopted retention and operating procedure](docs/privacy-operations.md)
+- [Private deployment assessment](docs/deployed-assessment-2026-10-06.md)
+- [Bundled image provenance](docs/asset-provenance.md)
+- [Host headers and launch verification](docs/security-deployment.md)
+
+The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers locally; `netlify.toml` supplies the corresponding host rules, starting with Report-Only CSP. Verify the actual deployed responses and Google flows privately before enforcing CSP and releasing the site.

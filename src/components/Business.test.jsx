@@ -97,6 +97,34 @@ describe('Business', () => {
     expect(screen.queryByText(/Phase 3b/i)).not.toBeInTheDocument()
   })
 
+
+  it('renders all credits safely and keeps credit links from flipping the card', async () => {
+    const user = userEvent.setup()
+    render(<Business business={{ ...business,
+      photoAttributions: [{ displayName: 'Alice', uri: 'https://example.com/alice' }, { displayName: '<script>bad</script>', uri: 'javascript:alert(1)' }, { displayName: 'Bob', uri: null }],
+      placeAttributions: [{ provider: 'Provider one', providerURI: 'https://example.com/provider' }, { provider: 'Provider two', providerURI: null }],
+    }} />)
+    expect(screen.getByText('<script>bad</script>')).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: '<script>bad</script>' })).not.toBeInTheDocument()
+    expect(screen.getByText('Bob')).toBeInTheDocument()
+    expect(document.querySelector('script')).toBeNull()
+    const author = screen.getByRole('link', { name: 'Alice' })
+    expect(author).toHaveAttribute('href', 'https://example.com/alice')
+    author.addEventListener('click', (event) => event.preventDefault())
+    await user.click(author)
+    expect(screen.getByRole('button', { name: `Show details for ${business.name}` })).toHaveAttribute('aria-pressed', 'false')
+    await user.click(screen.getByRole('button', { name: `Show details for ${business.name}` }))
+    expect(screen.getByRole('link', { name: 'Provider one' })).toBeInTheDocument()
+    expect(screen.getByText('Provider two')).toBeInTheDocument()
+  })
+
+  it('does not expose a non-web URL from restaurant metadata', async () => {
+    const user = userEvent.setup()
+    render(<Business business={{ ...business, website: 'javascript:alert(1)' }} />)
+    await user.click(screen.getByRole('button', { name: `Show details for ${business.name}` }))
+    expect(screen.queryByRole('link', { name: 'View on Google Maps' })).not.toBeInTheDocument()
+  })
+
   it('handles missing optional contact and price data', async () => {
     const user = userEvent.setup()
     const minimalBusiness = { ...business, phone: null, website: null, hours: null, priceLevel: null }

@@ -1,0 +1,20 @@
+# Netlify reads this file when building the selected production branch.
+# Test this CSP privately in Report-Only before replacing its header name
+# with Content-Security-Policy and repeating the HTTPS/browser checks.
+# Keep the policy aligned with config/securityHeaders.js.
+[build]
+command = "npm run build"
+publish = "dist"
+
+[build.environment]
+NODE_VERSION = "24"
+
+[[headers]]
+for = "/*"
+
+[headers.values]
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Permissions-Policy = "geolocation=(self), camera=(), microphone=(), payment=()"
+Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' https://googleapis.com https://*.googleapis.com https://*.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://*.gstatic.com https://*.googleusercontent.com https://*.google.com https://*.ggpht.com; connect-src 'self' https://googleapis.com https://*.googleapis.com https://*.gstatic.com https://*.google.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; frame-ancestors 'none'"
