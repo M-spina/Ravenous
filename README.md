@@ -10,13 +10,7 @@
 
 Ravenous turns a cuisine or restaurant query and a location into a sortable set of nearby places. It was built as a portfolio project focused on predictable state management, resilient browser API interactions, accessible UI, and production-minded quality checks.
 
-There is no hosted deployment yet. The screenshots below use representative local preview data and show the current interface.
-
-## Screenshots
-
-![Ravenous search form with three restaurant results](./docs/screenshots/ravenous-search-results.jpg)
-
-![Ravenous restaurant card showing phone, Google Maps link, and opening hours](./docs/screenshots/ravenous-restaurant-details.jpg)
+There is no hosted deployment yet. The interface includes Google attribution, optional precise-location withdrawal, and draft standalone legal pages.
 
 ## Features
 
@@ -174,3 +168,15 @@ src/
 - Browser geolocation is a multi-step interaction: permission, position lookup, reverse geocoding, and manual recovery each need explicit feedback.
 - Accessibility and release hygiene are easiest to preserve when lint, tests, and production builds are required on every pull request.
 - A browser API key is protected through least-privilege platform restrictions and rotation—not by treating bundled configuration as a secret.
+
+## Launch preparation
+
+These changes are delivered as four stacked draft PRs. Review dependency updates, Google attribution/legal structure, privacy controls, then security configuration.
+
+- [Dependency audit](docs/dependency-security.md)
+- [Google attribution](docs/google-attribution.md)
+- [Privacy and owner actions](docs/privacy-readiness.md)
+- [Bundled image provenance](docs/asset-provenance.md)
+- [Host headers and launch verification](docs/security-deployment.md)
+
+The legal pages deliberately contain marked owner/host placeholders. Complete them and the HTTPS, storage/access and account checks before public deployment. Vite preview applies candidate headers; a production host needs its own HTTP-header configuration.

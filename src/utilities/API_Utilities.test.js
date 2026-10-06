@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import defaultImage from '../assets/placeholder.png'
+import defaultImage from '../assets/placeholder.svg'
 import { transformPlaceData, transformPlacesResponse } from './API_Utilities.js'
 
 describe('Places response transformation', () => {
@@ -45,6 +45,8 @@ describe('Places response transformation', () => {
       reviewCount: 328,
       priceLevel: 'PRICE_LEVEL_MODERATE',
       imageUrl: 'https://images.example/restaurant.jpg',
+      photoAttributions: [],
+      placeAttributions: [],
       phone: '+44 20 0000 0000',
       website: 'https://maps.google.com/example',
       hours: 'Wednesday: 9:00 am–10:00 pm',
@@ -62,10 +64,29 @@ describe('Places response transformation', () => {
       reviewCount: 0,
       priceLevel: null,
       imageUrl: defaultImage,
+      photoAttributions: [],
+      placeAttributions: [],
       phone: null,
       website: null,
       hours: null,
     })
+  })
+
+  it('keeps credits for the displayed photo and all place providers as plain data', () => {
+    const firstAuthors = [{ displayName: 'Alice', uri: 'https://example.com/alice' }, { displayName: 'Bob' }]
+    const place = {
+      id: 'credited',
+      photos: [
+        { getURI: () => 'https://example.com/photo', authorAttributions: firstAuthors },
+        { getURI: () => 'https://example.com/other', authorAttributions: [{ displayName: 'Other author' }] },
+      ],
+      attributions: [{ provider: 'Provider one', providerURI: 'https://example.com/provider' }, { provider: 'Provider two' }],
+    }
+    const result = transformPlaceData(place)
+    expect(result.photoAttributions).toEqual([{ displayName: 'Alice', uri: 'https://example.com/alice' }, { displayName: 'Bob', uri: null }])
+    expect(result.placeAttributions).toEqual([{ provider: 'Provider one', providerURI: 'https://example.com/provider' }, { provider: 'Provider two', providerURI: null }])
+    expect(result.photoAttributions[0]).not.toBe(firstAuthors[0])
+    expect(JSON.parse(JSON.stringify(result)).photoAttributions).toEqual(result.photoAttributions)
   })
 
   it('transforms every Place in a response', () => {

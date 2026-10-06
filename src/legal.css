@@ -1,0 +1,10 @@
+.legal-page { max-width: 52rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; line-height: 1.7; overflow-wrap: anywhere; }
+.legal-page header, .legal-page footer { padding: 1rem 0; }
+.legal-page h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.2; margin: 1.5rem 0 1rem; }
+.legal-page h2 { font-size: 1.3rem; font-weight: 700; margin: 2rem 0 .5rem; }
+.legal-page p, .legal-page ul, .legal-page ol { margin: .75rem 0; }
+.legal-page ul, .legal-page ol { padding-left: 1.5rem; list-style: revert; }
+.legal-page a { color: var(--primary-dark); text-decoration: underline; text-underline-offset: .2em; }
+.legal-page a:focus-visible, .legal-page summary:focus-visible { outline: 3px solid var(--ring); outline-offset: 4px; }
+.legal-page .draft-notice { padding: 1rem; border: 1px solid var(--border); border-radius: .75rem; background: var(--muted); }
+.legal-page footer { margin-top: 2rem; border-top: 1px solid var(--border); }

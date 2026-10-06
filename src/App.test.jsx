@@ -46,6 +46,7 @@ describe('App UI states', () => {
 
   it('renders loading skeletons', () => {
     renderWithStore(<App />, state({ isLoading: true, hasSearched: true }))
+    expect(screen.getByRole('status')).toHaveTextContent('Searching for restaurants…')
     expect(screen.getByRole('region', { name: 'Loading restaurant results' })).toHaveAttribute('aria-busy', 'true')
     expect(screen.queryByRole('heading', { name: 'No restaurants found' })).not.toBeInTheDocument()
   })
@@ -60,6 +61,7 @@ describe('App UI states', () => {
 
   it('renders populated results and sorting controls', () => {
     renderWithStore(<App />, state({ businesses: [business], hasSearched: true, mapsLoaded: true }))
+    expect(screen.getByRole('status')).toHaveTextContent('1 restaurant found.')
     expect(screen.getByRole('region', { name: 'Restaurant results' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Best Match' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('heading', { name: business.name })).toBeInTheDocument()

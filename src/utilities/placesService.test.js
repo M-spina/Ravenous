@@ -26,6 +26,8 @@ describe('searchPlaces', () => {
       textQuery: 'pizza in London',
       maxResultCount: 20,
       fields: expect.arrayContaining([
+        'attributions',
+        'photos',
         'id',
         'displayName',
         'formattedAddress',
