@@ -1,6 +1,6 @@
 # Provider evidence and enquiries — 6 October 2026
 
-Status: public-document research and limited authenticated account inspection completed; enquiries prepared, **not sent**. The staged clean-profile technical comparison is complete; final public-visitor configuration and owner assessment approval remain pending. Keep PR #21 draft and Netlify private. This document contains no credentials, raw browser exports or visitor records.
+Status: public-document research and limited authenticated account inspection completed. The owner supplied a Netlify support reply; the assistant has sent no messages. A Netlify follow-up and Google enquiry are prepared. Google submission status has not been confirmed. The staged clean-profile technical comparison is complete; final public-visitor configuration and owner assessment approval remain pending. Keep PR #21 draft and Netlify private. This document contains no credentials, raw browser exports or visitor records.
 
 ## What is established
 
@@ -14,6 +14,34 @@ Status: public-document research and limited authenticated account inspection co
 | Google Maps Platform Support, authenticated Firefox inspection | The selected project has Standard Support and offers Create a case; no existing cases were displayed. | No account-specific agreement or exception was obtained there. No case was submitted. |
 | [Official DPF participant register](https://www.dataprivacyframework.gov/list), searched in Firefox | Google LLC and Netlify, Inc. each showed Active for the UK Extension and Non-HR Data on 6 October 2026. | Certification alone does not establish scope for every transfer or onward recipient. Recheck when adopting the assessment. Google's older certification deep link opened the registry homepage; current List searches were used instead. |
 
+## Netlify reply and Trust Center review
+
+On 6 October 2026 the owner supplied Netlify Support's reply directing them to https://trust.netlify.com and inviting a reply for questions the documents do not cover. This is owner-supplied correspondence; the assistant did not inspect the mailbox or send an enquiry. Keep the original email privately. It does not answer site-specific visitor-log fields, retention/deletion, or which subprocessors apply.
+
+The link redirected to the [public Trust Center](https://www.netlify.com/trust-center/). The authenticated [user Trust Center](https://app.netlify.com/user/trust-center) was also inspected in Firefox: the DPA (labelled v5) and subprocessor list were available, while SOC 2 and several policy documents were locked behind Request access. No access request or agreement acceptance was performed. No confidential compliance reports were downloaded or added to this repository.
+
+The [published DPA dated 9 June 2026](https://www.netlify.com/pdf/netlify-dpa.pdf) was re-read. It forms part of the applicable subscription agreement unless superseded. Section 2.1 covers on-behalf processing; Exhibit I includes hosted-site visitors and IP addresses among possible data categories. Section 12 describes deletion at service termination according to service capabilities/policies; Exhibit I's processing duration is the agreement term. Those clauses do not specify a rolling visitor/security-log deletion deadline. The general subprocessor list describes possible infrastructure/logging providers, not the confirmed set for Ravenous.
+
+### Focused follow-up — prepared, not sent
+
+Reply in the existing support thread:
+
+Hello,
+
+Thank you. I reviewed the Trust Center's DPA and subprocessor list. I still need the hosted-site logging details for ravenousfind.netlify.app, a Free static React/Vite site with Forms, Web Analytics and RUM disabled, no Functions/Edge Functions and no Log Drains.
+
+Please point me to the document and section, or confirm:
+
+1. Visitor/CDN/security-log fields and purposes, and which processing is on my behalf versus Netlify's own purposes.
+2. Retention/deletion periods or criteria, including backups/security exceptions, and controls available to me. The 24-hour Observability viewing window does not establish deletion.
+3. Which listed subprocessors/countries actually handle these records and the applicable UK transfer safeguards.
+4. Whether the published Self-Serve Agreement and DPA cover this Free account without another step.
+
+If a restricted policy covers this, please identify its title and access route. No SOC 2 report or full vendor questionnaire is needed unless it answers these questions.
+
+Thank you,
+Malcolm Spina
+
 ## Confirming applicable terms and transfers
 
 A normal self-service account may use the published standard agreement; a separately negotiated contract is not automatically needed. Check onboarding/acceptance records, any reseller or special agreement, billing country and service use. Obtain support confirmation if those records do not settle applicability. Do not accept new terms merely to obtain evidence.
@@ -24,7 +52,7 @@ Create a small private transfer record for each actual flow: Maps SDK/search/coo
 
 [Google's transfer information](https://policies.google.com/privacy/frameworks) describes global processing, covered DPF transfers and contractual safeguards where required, with a contact route for copies. Netlify's DPA also describes conditional DPF and contractual provisions. Preserve the applicable documents privately; publish only the resulting clear notice wording.
 
-## Ready-to-send Netlify enquiry
+## Initial Netlify enquiry — original prepared text
 
 Route: privacy@netlify.com, the address in the Privacy Statement. Send from the account owner or include enough account context for support to identify the project. Country: United Kingdom. No raw cookies, API keys, search results or personal coordinates are needed.
 
@@ -51,9 +79,9 @@ Malcolm Spina
 
 Privacy route: [Google Maps Platform Data Privacy Inquiry form](https://support.google.com/cloud/contact/maps_api_privacy), linked by the [official support documentation](https://developers.google.com/maps/documentation/geocoding/support). Account/terms applicability can also be raised through Google Cloud Console → Google Maps Platform → Support → Create a case, selecting the existing project. Use the normal account; no paid support upgrade is needed merely to inspect the currently available route. Submit only with owner instruction. The privacy form notes that account/system information accompanies the submission.
 
-Contact email: malpoke1@gmail.com (verify delivery before submission).
+Contact email: malpoke1@gmail.com. The owner reported inbox verification complete on 6 October 2026.
 
-Full Description: **916 characters including spaces and line breaks**. Paste only the text inside this block; the form has no separate subject field. No enquiry has been submitted.
+Full Description: **916 characters including spaces and line breaks**. Paste only the text inside this block; the form has no separate subject field. The assistant has not submitted this enquiry; the owner's submission status has not been confirmed.
 
 ```text
 I am the sole UK operator of Ravenous (https://ravenousfind.netlify.app), a free portfolio app with UK billing. It uses Maps JavaScript API, Places autocomplete/text search/photos and optional reverse geocoding. The SDK loads before interaction; there are no visitor accounts, saved searches, ads or analytics.

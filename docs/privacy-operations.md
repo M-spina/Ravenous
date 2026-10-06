@@ -18,7 +18,7 @@ These checks do not establish exact visitor-log retention, accepted agreement ve
 
 ## Additional provider evidence
 
-The [6 October provider evidence and ready-to-send enquiries](provider-evidence-2026-10-06.md) records the Free-plan Observability viewing window, Google request-log documentation, live UK DPF certification checks and exact support routes. No enquiries have been sent. The [clean-profile technical comparison](clean-browser-assessment-2026-10-06.md) is complete: both cookie modes passed, with no persistent app storage or captured Google request cookies. The private-access cookie and earlier toolbar preference remain separate from the public configuration. Provider interpretation and final owner approval are pending.
+The [6 October provider evidence and ready-to-send enquiries](provider-evidence-2026-10-06.md) records the Free-plan Observability viewing window, Google request-log documentation, live UK DPF certification checks and exact support routes. The owner supplied a Netlify support reply directing them to the Trust Center; a focused follow-up is prepared. No messages were sent by the assistant. The [clean-profile technical comparison](clean-browser-assessment-2026-10-06.md) is complete: both cookie modes passed, with no persistent app storage or captured Google request cookies. The private-access cookie and earlier toolbar preference remain separate from the public configuration. Provider interpretation and final owner approval are pending.
 
 ## Provider documents reviewed
 
@@ -42,7 +42,7 @@ The published Maps terms incorporate controller–controller terms. Those terms 
 
 ## Adopted retention schedule
 
-These are adopted owner-controlled defaults, not statutory periods or confirmed provider settings. Permit earlier deletion where information is no longer needed. The owner supplied Malcolm Spina and malpoke1@gmail.com as the public contact on 6 October 2026 and reported creating the Gmail inbox. Delivery, monitoring, MFA, absence coverage and email-provider arrangements still need verification before launch; approval of this procedure does not prove they are already operating.
+These are adopted owner-controlled defaults, not statutory periods or confirmed provider settings. Permit earlier deletion where information is no longer needed. The owner supplied Malcolm Spina and malpoke1@gmail.com as the public contact on 6 October 2026 and reported creating the Gmail inbox. The owner reported the inbox-verification checklist complete on 6 October 2026, covering the delivery and operating checks described below. This is owner confirmation, not independent access to Gmail or its security settings. Email-provider roles/retention/transfers and final legal assessment remain outstanding.
 
 | Information | Adopted period or criterion | Reason and action |
 | --- | --- | --- |
@@ -82,7 +82,7 @@ This is a delivery and operating check, not an identity-verification service. Th
 5. Confirm account recovery and MFA are configured, only authorised access exists, and twice-weekly inbox/spam checks and a reliable absence-checking arrangement are in operation.
 6. Keep a minimal private note of date, inbound/outbound delivery outcome, checking schedule and account-security confirmation. Do not store passwords, recovery codes or message contents in this repository. Delete disposable test messages when no longer useful.
 
-Until those checks are reported as complete, the notice's inbox-operation placeholder remains pending. This does not test complaint investigation itself or complete the Gmail provider/transfer assessment.
+Owner confirmation: on 6 October 2026 Malcolm Spina reported inbox verification complete. The inbox-operation placeholder is resolved on that basis; no private test messages or account-security evidence were requested or committed. This does not test complaint investigation itself or complete the Gmail provider/transfer assessment.
 
 ## How the sole owner completes assessment approval
 
@@ -107,7 +107,7 @@ The owner can communicate these confirmations in the chat so the draft documenta
 - Netlify documents that pre-launch-toolbar hide/minimise preferences use local storage, and that the toolbar disappears when the project becomes public. Record test-only toolbar/login behaviour separately and repeat relevant checks on the final visitor configuration. Audits use Agent Runners and consume credits; their findings do not establish lawful bases, exact retention or completed compliance.
 - Review and complete the [draft processing assessment](privacy-assessment-draft.md), including Google's initial page-load requests and whether loading can be deferred. Confirm optional-location consent and separate bases for correspondence and statutory complaints/rights handling.
 - Enforcing headers and the tested private production flows now pass for `17392c5`; repeat relevant checks after configuration or visibility changes, and complete the framing/device-permission limitations recorded in the production report.
-- Owner/contact details are supplied. Verify the Gmail inbox, put the adopted procedure into operation, and complete the ICO fee assessment with the actual owner facts.
+- Owner/contact details and owner-reported inbox verification are recorded. Continue the adopted procedure and complete the ICO fee assessment with the actual owner facts.
 
 [Netlify pre-launch-toolbar documentation](https://docs.netlify.com/manage/projects/pre-launch-toolbar/), [ICO storage/access exceptions](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/).
 
@@ -115,7 +115,7 @@ After each issue is resolved, replace the notice's short pending label with visi
 
 Procedure adoption is recorded above. Final owner sign-off should identify the dated assessment and notice versions and the verified settings. Sign-off of the completed assessments remains pending until the outstanding evidence has been reviewed. Do not put an approval statement in the public notice before that review.
 
-## Draft questions for Netlify — not sent
+## Initial Netlify questions — historical prepared text
 
 For the static Ravenous site on the Free plan, with Forms disabled and no deployed functions, please confirm:
 
@@ -124,4 +124,4 @@ For the static Ravenous site on the Free plan, with Forms disabled and no deploy
 3. Which processing falls under the DPA and which Netlify performs as controller; what processing locations and UK transfer arrangements apply to these logs?
 4. What browser storage/access is introduced for ordinary public visitors, separately from private-project login, the pre-launch toolbar and any public-site badge?
 
-Do not include API keys, authentication cookies or personal visitor data in a support request. The owner must instruct sending; this document is only a prepared draft.
+Do not include API keys, authentication cookies or personal visitor data in a support request. The owner has since supplied a Netlify reply. Use the focused follow-up in provider-evidence-2026-10-06.md for unresolved questions; the assistant has not sent it.
